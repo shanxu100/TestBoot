@@ -1,15 +1,19 @@
 package com.example.boottest.demo.controller;
 
-import com.example.boottest.demo.netty.NettyConfig;
 import com.example.boottest.demo.netty.NettyServer;
 import com.example.boottest.demo.pojo.User;
 import com.example.boottest.demo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.util.function.Tuples;
+
+import java.time.Duration;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Guan
@@ -39,6 +43,10 @@ public class TestController {
     @RequestMapping("/function3")
     public void function3() {
         nettyServer.stop();
+//        Flux
     }
+
+
+
 
 }

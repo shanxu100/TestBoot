@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 
 /**
  * 加载顺序 Constructor >> @Autowired >> @PostConstruct
