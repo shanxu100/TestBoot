@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
+
 
 /**
  * 加载顺序 Constructor >> @Autowired >> @PostConstruct
@@ -49,7 +51,7 @@ public class NettyServer {
     public void start() {
         try {
             Channel channel = serverBootstrap.bind(port).sync().channel();
-            logger.info("Netty 启动成功..."+Thread.currentThread().toString());
+            logger.info("Netty 启动成功..." + Thread.currentThread().toString());
             channel.closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,10 +64,12 @@ public class NettyServer {
     }
 
     @Async
+    @PreDestroy//这个有用吗？
     public void stop() {
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
         bizGroup.shutdownGracefully();
+        logger.info("stop netty server..." + Thread.currentThread().toString());
     }
 
 }
