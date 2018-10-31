@@ -5,21 +5,20 @@ import com.example.boottest.demo.pojo.User;
 import com.example.boottest.demo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuples;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Guan
  * @date Created on 2018/10/23
  */
-@RestController
+@Controller
 @RequestMapping("/test")
 public class TestController {
     @Autowired
@@ -30,20 +29,22 @@ public class TestController {
     private NettyServer nettyServer;
 
     @RequestMapping("/function1")
+    @ResponseBody
     public User function1(@RequestParam String username, @RequestParam String pwd) {
         User user = testService.createUser(username, pwd);
         return user;
     }
 
     @RequestMapping("/function2")
+    @ResponseBody
     public void function2(@RequestBody User user) {
         System.out.println(user.toString());
     }
 
     @RequestMapping("/function3")
-    public void function3() {
-        nettyServer.stop();
-//        Flux
+    public String function3(Map<String,String> map) {
+        map.put("welcome","balabala");
+        return "testPage";
     }
 
 
