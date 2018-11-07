@@ -1,6 +1,7 @@
 package com.example.boottest.demo;
 
 import com.example.boottest.demo.netty.NettyConfig;
+import com.example.boottest.demo.recommendation.UBRCMD;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,17 @@ public class DemoApplicationTests {
     NettyConfig nettyConfig;
     @Autowired
     NettyConfig nettyConfig2;
-	@Test
-	public void contextLoads() {
-	    System.out.println(nettyConfig.toString());
-	    System.out.println(nettyConfig.equals(nettyConfig2));
-	    System.out.println();
-	}
+
+    @Autowired
+    UBRCMD recommendation;
+
+    @Test
+    public void contextLoads() {
+        try {
+//            recommendation.recommend(5, 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

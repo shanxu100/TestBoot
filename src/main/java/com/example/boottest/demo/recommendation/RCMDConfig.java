@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Configuration
 @Component
-public class RecommendationConfig {
+public class RCMDConfig {
 
     @Value("${recommendation.dataset.path}")
     private String datasetPath;
