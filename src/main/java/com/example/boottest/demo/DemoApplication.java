@@ -1,6 +1,7 @@
 package com.example.boottest.demo;
 
 import com.example.boottest.demo.netty.NettyServer;
+import com.example.boottest.demo.recommendation.RcmdManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class DemoApplication implements CommandLineRunner {
     @Autowired
     NettyServer nettyServer;
 
+    @Autowired
+    RcmdManager rcmdManager;
+
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
@@ -32,5 +37,7 @@ public class DemoApplication implements CommandLineRunner {
 //        nettyServer.start();
         logger.info("command line :"+ Thread.currentThread().toString());
         nettyServer.start();
+
+        rcmdManager.loadDataModel();
     }
 }

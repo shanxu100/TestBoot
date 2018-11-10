@@ -19,6 +19,7 @@ import java.io.File;
 /**
  * Created by ahu_lichang on 2017/6/24.
  */
+@Deprecated
 public class MyEvaluator {
     public static void main(String[] args) throws Exception {
         //准备数据 这里是电影评分数据

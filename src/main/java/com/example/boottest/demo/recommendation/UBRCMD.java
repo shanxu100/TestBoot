@@ -23,6 +23,7 @@ import java.util.List;
  * @date 2017/6/23
  */
 @Component
+@Deprecated
 public class UBRCMD {
 
 

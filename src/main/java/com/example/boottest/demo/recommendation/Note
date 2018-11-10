@@ -1,0 +1,44 @@
+
+1、DataModel的实现
+org.apache.mahout.cf.taste.impl.model.GenericDataModel
+org.apache.mahout.cf.taste.impl.model.GenericBooleanPrefDataModel
+org.apache.mahout.cf.taste.impl.model.PlusAnonymousUserDataModel
+org.apache.mahout.cf.taste.impl.model.file.FileDataModel
+org.apache.mahout.cf.taste.impl.model.hbase.HBaseDataModel
+org.apache.mahout.cf.taste.impl.model.cassandra.CassandraDataModel
+org.apache.mahout.cf.taste.impl.model.mongodb.MongoDBDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.SQL92JDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.PostgreSQLJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.SQL92BooleanPrefJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.MySQLBooleanPrefJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.PostgreBooleanPrefSQLJDBCDataModel
+org.apache.mahout.cf.taste.impl.model.jdbc.ReloadFromJDBCDataModel
+
+2、UserSimilarity 和 ItemSimilarity 相似度实现有以下几种：
+
+CityBlockSimilarity ：基于Manhattan距离相似度
+EuclideanDistanceSimilarity ：基于欧几里德距离计算相似度
+LogLikelihoodSimilarity ：基于对数似然比的相似度
+PearsonCorrelationSimilarity ：基于皮尔逊相关系数计算相似度
+SpearmanCorrelationSimilarity ：基于皮尔斯曼相关系数相似度
+TanimotoCoefficientSimilarity ：基于谷本系数计算相似度
+UncenteredCosineSimilarity ：计算 Cosine 相似度
+
+3、UserNeighborhood 主要实现有两种：
+
+NearestNUserNeighborhood：对每个用户取固定数量N个最近邻居
+ThresholdUserNeighborhood：对每个用户基于一定的限制，取落在相似度限制以内的所有用户为邻居。
+表现的就是“宁缺勿滥”，在数据稀疏的情况下效果是非常明显的。
+
+4、Recommender分为以下几种实现：
+GenericUserBasedRecommender：基于用户的推荐引擎
+GenericBooleanPrefUserBasedRecommender：基于用户的无偏好值推荐引擎
+GenericItemBasedRecommender：基于物品的推荐引擎
+GenericBooleanPrefItemBasedRecommender：基于物品的无偏好值推荐引擎
+
+5、RecommenderEvaluator有以下几种实现：
+
+AverageAbsoluteDifferenceRecommenderEvaluator ：计算平均差值
+RMSRecommenderEvaluator ：计算均方根差
