@@ -3,6 +3,8 @@ package com.example.boottest.demo.controller;
 import com.example.boottest.demo.netty.NettyServer;
 import com.example.boottest.demo.pojo.User;
 import com.example.boottest.demo.service.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TestController {
     @Autowired
     TestService testService;
+    private static final Logger logger= LoggerFactory.getLogger(TestController.class);
 
 
     @Autowired
