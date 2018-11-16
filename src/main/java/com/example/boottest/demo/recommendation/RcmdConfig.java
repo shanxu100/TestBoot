@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class RcmdConfig {
 
+    @Value("${recommendation.NN.number}")
+    private int NN ;
+
     @Value("${recommendation.dataset.path}")
     private String datasetPath;
 
@@ -21,4 +24,10 @@ public class RcmdConfig {
     public String getDatasetPath() {
         return datasetPath;
     }
+
+    @Bean(name = "NN")
+    public int getNearestNeighborhoodCount(){
+        return NN;
+    }
+
 }

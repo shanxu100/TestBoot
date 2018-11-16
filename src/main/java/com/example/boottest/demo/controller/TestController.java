@@ -3,6 +3,7 @@ package com.example.boottest.demo.controller;
 import com.example.boottest.demo.netty.NettyServer;
 import com.example.boottest.demo.pojo.User;
 import com.example.boottest.demo.service.TestService;
+import com.example.boottest.demo.utils.RedisClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ import java.util.Map;
 public class TestController {
     @Autowired
     TestService testService;
+
+
+
+
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
 
@@ -47,6 +52,15 @@ public class TestController {
     public String function3(Map<String, String> map) {
         map.put("welcome", "balabala");
         return "testPage";
+    }
+
+    @RequestMapping("/function4")
+    @ResponseBody
+    public String function4(@RequestParam String key, @RequestParam String value) {
+
+        User user=new User("user",value);
+        RedisClient.set(key, user);
+        return RedisClient.get(key).toString();
     }
 
 

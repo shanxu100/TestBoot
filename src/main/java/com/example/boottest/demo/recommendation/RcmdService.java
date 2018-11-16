@@ -1,8 +1,12 @@
 package com.example.boottest.demo.recommendation;
 
+import com.example.boottest.demo.utils.RedisClient;
 import org.apache.mahout.cf.taste.eval.IRStatistics;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,10 +20,13 @@ import java.util.List;
 public class RcmdService {
 
     @Autowired
-    UBRCMD ubr;
+    RcmdManager rcmdManager;
 
     @Autowired
-    RcmdManager rcmdManager;
+    @Qualifier("datasetPath")
+    private String datasetPath;
+
+    private static final Logger logger = LoggerFactory.getLogger(RcmdService.class);
 
 
     public List<RecommendedItem> recommend(long userId, int howMany) {
@@ -36,8 +43,22 @@ public class RcmdService {
     }
 
     public double evaluate() {
+
+        //获取redis的缓存
+        String redisKey = datasetPath + "_evaluate";
+        logger.info("评估：redisKey={}", redisKey);
+
+        if (RedisClient.exist(redisKey)) {
+            return Double.parseDouble(RedisClient.get(redisKey).toString());
+        }
+
         try {
-            return rcmdManager.evaluate();
+            double score = rcmdManager.evaluate();
+            //将结果存入redis
+            if (score >= 0) {
+                RedisClient.set(redisKey, score + "");
+            }
+            return score;
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -46,8 +67,18 @@ public class RcmdService {
 
 
     public IRStatistics statistics() {
+        String redisKey = datasetPath + "_statistics";
+        logger.info("统计：redisKey={}", redisKey);
+        if (RedisClient.exist(redisKey)) {
+            return RedisClient.get(redisKey, IRStatistics.class);
+        }
+
         try {
-            return rcmdManager.statistics();
+            IRStatistics statistics = rcmdManager.statistics();
+            if (statistics != null) {
+                RedisClient.set(redisKey, statistics);
+            }
+            return statistics;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
