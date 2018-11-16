@@ -1,10 +1,8 @@
 package com.example.boottest.demo.recommendation;
 
 import org.apache.mahout.cf.taste.eval.IRStatistics;
-import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

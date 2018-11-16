@@ -48,22 +48,22 @@ public class NettyConfig {
     private DefaultEventExecutorGroup bizGroup;
 
 
-    @Bean(name="nettyPort")
+    @Bean(name = "nettyPort")
     public int getPort() {
         return port;
     }
 
-    @Bean(name="bossGroup")
+    @Bean(name = "bossGroup")
     public NioEventLoopGroup getBossGroup() {
         return bossGroup;
     }
 
-    @Bean(name="workerGroup")
+    @Bean(name = "workerGroup")
     public NioEventLoopGroup getWorkerGroup() {
         return workerGroup;
     }
 
-    @Bean(name="bizGroup")
+    @Bean(name = "bizGroup")
     public DefaultEventExecutorGroup getBizGroup() {
         return bizGroup;
     }
@@ -84,10 +84,6 @@ public class NettyConfig {
                 .childOption(ChannelOption.TCP_NODELAY, tcpNoDelay);
         return b;
     }
-
-
-
-
 
 
     /**

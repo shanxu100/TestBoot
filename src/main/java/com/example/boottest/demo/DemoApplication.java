@@ -34,8 +34,8 @@ public class DemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        nettyServer.start();
-        logger.info("command line :"+ Thread.currentThread().toString());
+
+        logger.info("command line :" + Thread.currentThread().toString());
         nettyServer.start();
 
         rcmdManager.loadDataModel();

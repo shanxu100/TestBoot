@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class UBRCMD {
         DataModel dataModel = new GroupLensDataModel(file);
 
         System.out.println("加载DataModel时间：" + (System.currentTimeMillis() - time1));
-        time1=System.currentTimeMillis();
+        time1 = System.currentTimeMillis();
 
         //计算相似度，相似度算法有很多种，欧几里得、皮尔逊等等。
         UserSimilarity similarity = new PearsonCorrelationSimilarity(dataModel);
@@ -50,15 +49,15 @@ public class UBRCMD {
         Recommender recommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, similarity);
 
         System.out.println("构建其他项时间：" + (System.currentTimeMillis() - time1));
-        time1=System.currentTimeMillis();
+        time1 = System.currentTimeMillis();
 
         //给用户ID等于5的用户推荐10部电影
         List<RecommendedItem> recommendedItemList = recommender.recommend(userId, howMany);
         System.out.println("产生推荐：" + (System.currentTimeMillis() - time1));
-        time1=System.currentTimeMillis();
+        time1 = System.currentTimeMillis();
         recommendedItemList = recommender.recommend(2, howMany);
         System.out.println("产生推荐：" + (System.currentTimeMillis() - time1));
-        time1=System.currentTimeMillis();
+        time1 = System.currentTimeMillis();
         //打印推荐的结果
         System.out.println("使用基于用户的协同过滤算法");
         System.out.println("为用户:" + userId + "推荐 " + howMany + " 个商品");

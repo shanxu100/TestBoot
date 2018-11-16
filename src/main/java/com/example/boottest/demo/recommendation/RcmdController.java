@@ -15,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rcmd")
-public class RCMDController {
+public class RcmdController {
 
     @Autowired
     RcmdService rcmdService;

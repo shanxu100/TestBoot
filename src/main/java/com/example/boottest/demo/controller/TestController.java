@@ -6,15 +6,13 @@ import com.example.boottest.demo.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.util.function.Tuples;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.Duration;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Guan
@@ -25,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TestController {
     @Autowired
     TestService testService;
-    private static final Logger logger= LoggerFactory.getLogger(TestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
 
     @Autowired
@@ -35,22 +33,21 @@ public class TestController {
     @ResponseBody
     public User function1(@RequestParam String username, @RequestParam String pwd) {
         User user = testService.createUser(username, pwd);
+
         return user;
     }
 
     @RequestMapping("/function2")
     @ResponseBody
     public void function2(@RequestBody User user) {
-        System.out.println(user.toString());
+        logger.info(user.toString());
     }
 
     @RequestMapping("/function3")
-    public String function3(Map<String,String> map) {
-        map.put("welcome","balabala");
+    public String function3(Map<String, String> map) {
+        map.put("welcome", "balabala");
         return "testPage";
     }
-
-
 
 
 }
