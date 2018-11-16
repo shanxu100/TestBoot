@@ -84,6 +84,7 @@
             <groupId>org.apache.mahout</groupId>
             <artifactId>mahout</artifactId>
             <version>${mahout.version}</version>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.apache.mahout</groupId>
@@ -103,6 +104,7 @@
             <artifactId>jedis</artifactId>
         </dependency>
 
+        <!--Json相关-->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
