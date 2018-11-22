@@ -1,0 +1,71 @@
+Manifest-Version: 1.0
+Class-Path: commons-logging-1.1.3.jar spring-boot-starter-jdbc-2.0.6.R
+ ELEASE.jar lucene-queryparser-5.5.2.jar icu4j-54.1.jar slf4j-api-1.7.
+ 25.jar hadoop-mapreduce-client-app-2.4.1.jar spring-expression-5.0.10
+ .RELEASE.jar netty-all-4.1.29.Final.jar json-20180813.jar lucene-memo
+ ry-5.5.2.jar spring-data-redis-2.0.11.RELEASE.jar snappy-java-1.0.4.1
+ .jar junit-4.12.jar spring-context-support-5.0.10.RELEASE.jar hadoop-
+ mapreduce-client-common-2.4.1.jar netty-common-4.1.29.Final.jar commo
+ ns-configuration-1.6.jar api-util-1.0.0-M20.jar lucene-benchmark-5.5.
+ 2.jar thymeleaf-extras-java8time-3.0.1.RELEASE.jar solr-commons-csv-3
+ .5.0.jar spring-boot-starter-2.0.6.RELEASE.jar fastjson-1.2.51.jar co
+ mmons-httpclient-3.1.jar commons-cli-1.2.jar spring-boot-2.0.6.RELEAS
+ E.jar lucene-highlighter-5.5.2.jar hibernate-validator-6.0.13.Final.j
+ ar commons-lang3-3.7.jar logback-core-1.2.3.jar guava-14.0.1.jar myba
+ tis-spring-1.3.2.jar log4j-1.2.17.jar mysql-connector-java-5.1.47.jar
+  tools.jar commons-compress-1.8.1.jar hbase-client-1.0.0.jar jackson-
+ annotations-2.9.0.jar hamcrest-core-1.3.jar hadoop-yarn-common-2.4.1.
+ jar spring-boot-configuration-processor-2.0.6.RELEASE.jar spring-webm
+ vc-5.0.10.RELEASE.jar hadoop-auth-2.5.1.jar thymeleaf-3.0.10.RELEASE.
+ jar jackson-datatype-jsr310-2.9.7.jar javax.activation-api-1.2.0.jar 
+ lucene-join-5.5.2.jar mybatis-spring-boot-autoconfigure-1.3.2.jar apa
+ cheds-i18n-2.0.0-M15.jar jaxb-api-2.3.1.jar tomcat-embed-el-8.5.34.ja
+ r spring-context-5.0.10.RELEASE.jar spring-jdbc-5.0.10.RELEASE.jar my
+ batis-spring-boot-starter-1.3.2.jar joni-2.1.2.jar commons-digester-1
+ .8.jar spring-data-keyvalue-2.0.11.RELEASE.jar lucene-analyzers-commo
+ n-5.5.2.jar spring-aop-5.0.10.RELEASE.jar bson-3.6.4.jar avro-1.7.4.j
+ ar spring-boot-starter-logging-2.0.6.RELEASE.jar tomcat-embed-core-8.
+ 5.34.jar hbase-common-1.0.0.jar hadoop-yarn-server-common-2.4.1.jar c
+ ommons-net-3.1.jar xercesImpl-2.9.1.jar jsr305-1.3.9.jar hadoop-mapre
+ duce-client-core-2.4.1.jar reactor-core-3.1.10.RELEASE.jar xstream-1.
+ 4.4.jar commons-cli-2.0-mahout.jar logback-classic-1.2.3.jar spring-d
+ ata-mongodb-2.0.11.RELEASE.jar netty-resolver-4.1.29.Final.jar tomcat
+ -embed-websocket-8.5.34.jar servlet-api-2.5.jar findbugs-annotations-
+ 1.3.9-1.jar jul-to-slf4j-1.7.25.jar hadoop-mapreduce-client-jobclient
+ -2.4.1.jar spring-data-commons-2.0.11.RELEASE.jar xmlpull-1.1.3.1.jar
+  spring-jcl-5.0.10.RELEASE.jar spring-boot-starter-json-2.0.6.RELEASE
+ .jar apacheds-kerberos-codec-2.0.0-M15.jar paranamer-2.3.jar unbescap
+ e-1.1.6.RELEASE.jar commons-pool2-2.5.0.jar htrace-core-3.1.0-incubat
+ ing.jar commons-math3-3.2.jar spring-boot-autoconfigure-2.0.6.RELEASE
+ .jar jboss-logging-3.3.2.Final.jar jackson-core-asl-1.8.8.jar hadoop-
+ hdfs-2.4.1.jar jcodings-1.0.8.jar commons-beanutils-1.7.0.jar javax.a
+ nnotation-api-1.3.2.jar spring-boot-starter-web-2.0.6.RELEASE.jar sna
+ keyaml-1.19.jar hadoop-common-2.4.1.jar hadoop-client-2.4.1.jar lucen
+ e-facet-5.5.2.jar lucene-spatial-5.5.2.jar jackson-mapper-asl-1.8.8.j
+ ar xpp3_min-1.1.4c.jar hadoop-yarn-client-2.4.1.jar fastutil-7.0.12.j
+ ar spring-boot-starter-data-mongodb-2.0.6.RELEASE.jar zookeeper-3.4.6
+ .jar jackson-databind-2.9.7.jar mahout-examples-0.13.0.jar hadoop-ann
+ otations-2.4.1.jar spring-beans-5.0.10.RELEASE.jar gson-2.8.5.jar cla
+ ssmate-1.3.4.jar lettuce-core-5.0.5.RELEASE.jar validation-api-2.0.1.
+ Final.jar nekohtml-1.9.22.jar lucene-queries-5.5.2.jar log4j-to-slf4j
+ -2.10.0.jar jersey-core-1.9.jar hbase-protocol-1.0.0.jar commons-code
+ c-1.11.jar netty-buffer-4.1.29.Final.jar api-asn1-api-1.0.0-M20.jar m
+ ybatis-3.4.6.jar mahout-integration-0.13.0.jar hadoop-yarn-api-2.4.1.
+ jar mongodb-driver-3.6.4.jar spring-core-5.0.10.RELEASE.jar mahout-mr
+ -0.13.0.jar mahout-hdfs-0.13.0.jar httpclient-4.5.6.jar lucene-codecs
+ -5.5.2.jar netty-transport-4.1.29.Final.jar httpcore-4.4.10.jar jerse
+ y-client-1.9.jar jackson-core-2.9.7.jar commons-beanutils-core-1.8.0.
+ jar jedis-2.9.0.jar thymeleaf-spring5-3.0.10.RELEASE.jar mahout-math-
+ 0.13.0.jar commons-collections-3.2.1.jar log4j-api-2.10.0.jar protobu
+ f-java-2.5.0.jar hadoop-mapreduce-client-shuffle-2.4.1.jar attoparser
+ -2.0.5.RELEASE.jar spring-web-5.0.10.RELEASE.jar jetty-util-6.1.26.ja
+ r spring-boot-starter-tomcat-2.0.6.RELEASE.jar jackson-datatype-jdk8-
+ 2.9.7.jar HikariCP-2.7.9.jar spring-tx-5.0.10.RELEASE.jar jackson-mod
+ ule-parameter-names-2.9.7.jar commons-io-2.4.jar commons-lang-2.6.jar
+  reactive-streams-1.0.2.jar spring-boot-starter-data-redis-2.0.6.RELE
+ ASE.jar netty-handler-4.1.29.Final.jar netty-codec-4.1.29.Final.jar s
+ pring-oxm-5.0.10.RELEASE.jar t-digest-3.1.jar mongodb-driver-core-3.6
+ .4.jar hbase-annotations-1.0.0.jar lucene-core-5.5.2.jar spatial4j-0.
+ 5.jar
+Main-Class: com.example.boottest.demo.DemoApplication
+
