@@ -1,6 +1,8 @@
 package com.example.boottest.demo.recommendation;
 
-import com.example.boottest.demo.utils.GeoUtil;
+import com.example.boottest.demo.recommendation.geo.GeoUtil;
+import com.example.boottest.demo.recommendation.model.ContextInfo;
+import com.example.boottest.demo.recommendation.model.GeoInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,9 @@ public class ContextInfoService {
          * 2、确定 deviceId-username 的映射
          */
         GeoInfo geoInfo = GeoUtil.regeo(contextInfo.locationInfo.latitude, contextInfo.locationInfo.longitude);
-        contextInfo.locationInfo.formattedAddress = geoInfo.regeocode.formatted_address;
         List<GeoInfo.Aoi> aois = geoInfo.regeocode.aois;
         if (aois != null && aois.size() != 0) {
-            contextInfo.locationInfo.aoi = aois.get(0);
+            contextInfo.addLocationExtentedInfo(geoInfo.regeocode.formatted_address, aois.get(0).type, aois.get(0).name);
         }
         contextInfoDao.addContextInfo(contextInfo);
     }

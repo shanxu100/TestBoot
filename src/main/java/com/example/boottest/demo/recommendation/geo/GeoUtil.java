@@ -1,8 +1,8 @@
-package com.example.boottest.demo.utils;
+package com.example.boottest.demo.recommendation.geo;
 
-import com.example.boottest.demo.recommendation.GeoInfo;
+import com.example.boottest.demo.recommendation.model.GeoInfo;
+import com.example.boottest.demo.utils.GsonUtil;
 import com.example.boottest.demo.utils.okhttp.OkHttpManager;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;

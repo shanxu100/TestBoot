@@ -1,4 +1,4 @@
-package com.example.boottest.demo.recommendation;
+package com.example.boottest.demo.recommendation.model;
 
 import java.util.List;
 
@@ -34,6 +34,9 @@ public class GeoInfo extends BaseInfo {
         public String location;
         public String area;
         public String distance;
+        /**
+         * POI分类编码
+         */
         public String type;
 
     }

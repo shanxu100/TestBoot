@@ -1,5 +1,6 @@
 package com.example.boottest.demo.recommendation;
 
+import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.utils.mongodb.MongoDBUtil;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
