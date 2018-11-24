@@ -1,7 +1,6 @@
 package com.example.boottest.demo;
 
 import com.example.boottest.demo.netty.NettyConfig;
-import com.example.boottest.demo.recommendation.UBRCMD;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,7 @@ public class DemoApplicationTests {
     @Autowired
     NettyConfig nettyConfig2;
 
-    @Autowired
-    UBRCMD recommendation;
+
 
     @Test
     public void contextLoads() {

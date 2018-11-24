@@ -35,6 +35,7 @@ public class RcmdService {
             return rcmdManager.recommend(userId, howMany);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(logger.getName(), e);
 
             List<RecommendedItem> list = Collections.emptyList();
             return list;
@@ -61,6 +62,7 @@ public class RcmdService {
             return score;
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(logger.getName(), e);
             return -1;
         }
     }
@@ -80,7 +82,9 @@ public class RcmdService {
             }
             return statistics;
         } catch (Exception e) {
+
             e.printStackTrace();
+            logger.error(logger.getName(), e);
             return null;
         }
     }

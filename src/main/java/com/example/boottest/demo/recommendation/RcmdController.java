@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * 应用协同过滤算法，
+ * 1、产生推荐结果；
+ * 2、评估模型
+ * 3、计算模型信息：准确率、召回率、F-Measure等
+ *
  * @author Guan
  * @date Created on 2018/11/7
  */

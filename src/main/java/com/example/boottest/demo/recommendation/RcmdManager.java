@@ -80,6 +80,7 @@ public class RcmdManager {
 
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error(logger.getName(), e);
         }
 
     }
@@ -159,6 +160,7 @@ public class RcmdManager {
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(logger.getName(), e);
             return -1;
         } finally {
             isEvaluating = false;
@@ -209,6 +211,7 @@ public class RcmdManager {
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(logger.getName(), e);
             return null;
         } finally {
             isStatistics = false;
