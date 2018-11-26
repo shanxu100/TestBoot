@@ -61,6 +61,17 @@ public class ContextInfoDao {
      * @return
      */
     public List<BaseItem> findContextInfoWithAggregate(String groupKey) {
+        /*
+        MongoDB的查询语句
+        db.PushContext.aggregate(
+        [
+        {$group:{_id:"$timeSegment",count:{$sum:1}}},
+
+        {$project: {newname:"$_id"}}
+        ]
+        )
+
+         */
         List<Bson> aggregateList = new ArrayList<>();
         //$group
         BasicDBObject group = new BasicDBObject();
