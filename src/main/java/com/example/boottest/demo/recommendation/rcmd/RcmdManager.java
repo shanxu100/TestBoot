@@ -1,4 +1,4 @@
-package com.example.boottest.demo.recommendation;
+package com.example.boottest.demo.recommendation.rcmd;
 
 import com.example.boottest.demo.utils.LogUtils;
 import org.apache.mahout.cf.taste.common.TasteException;

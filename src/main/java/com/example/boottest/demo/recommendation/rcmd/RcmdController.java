@@ -1,4 +1,4 @@
-package com.example.boottest.demo.recommendation;
+package com.example.boottest.demo.recommendation.rcmd;
 
 import org.apache.mahout.cf.taste.eval.IRStatistics;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;

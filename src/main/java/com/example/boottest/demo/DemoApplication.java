@@ -1,7 +1,7 @@
 package com.example.boottest.demo;
 
 import com.example.boottest.demo.netty.NettyServer;
-import com.example.boottest.demo.recommendation.RcmdManager;
+import com.example.boottest.demo.recommendation.rcmd.RcmdManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.boottest.demo.recommendation.model;
 
 
-import com.example.boottest.demo.recommendation.geo.GeoMap;
+import com.example.boottest.demo.recommendation.ctx.ContextMap;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,15 +42,24 @@ public class ContextInfo extends BaseInfo {
         locationInfo.formattedAddress = formattedAddress;
         locationInfo.poiType = poiType;
         locationInfo.poiTypeName = poiTypeName;
-        locationInfo.placeType = GeoMap.getPlaceType(poiType);
-        locationInfo.placeTypeName = GeoMap.getPlaceTypeName(locationInfo.placeType);
+        locationInfo.placeType = ContextMap.getPlaceType(poiType);
+        locationInfo.placeTypeName = ContextMap.getPlaceTypeName(poiType);
+    }
+
+    /**
+     * 获取情景Id
+     *
+     * @return
+     */
+    public String getContextId() {
+        return ContextMap.getContextId(this);
     }
 
     /**
      * 格式化时间信息
      */
     private void formatTime() {
-        timestamp = timestamp == 0 ? System.currentTimeMillis() : timestamp;
+        timestamp = timestamp <= 0 ? System.currentTimeMillis() : timestamp;
         time = format.format(new Date(timestamp));
         int hour = Integer.parseInt(time.substring(11, 13));
         if (hour >= 6 && hour < 12) {

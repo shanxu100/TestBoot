@@ -1,8 +1,10 @@
-package com.example.boottest.demo.recommendation;
+package com.example.boottest.demo.recommendation.ctx;
 
 import com.example.boottest.demo.recommendation.geo.GeoUtil;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.GeoInfo;
+import com.example.boottest.demo.recommendation.model.stats.BaseItem;
+import com.example.boottest.demo.recommendation.model.stats.StatsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,23 @@ public class ContextInfoService {
             contextInfo.addLocationExtentedInfo(geoInfo.regeocode.formatted_address, aois.get(0).type, aois.get(0).name);
         }
         contextInfoDao.addContextInfo(contextInfo);
+    }
+
+
+    public StatsContext statsContextInfo() {
+
+        StatsContext result = new StatsContext();
+        //统计时段
+        List<BaseItem> timeSegmentList = contextInfoDao.findContextInfoWithAggregate("timeSegment");
+        //统计场所
+        List<BaseItem> placeList = contextInfoDao.findContextInfoWithAggregate("locationInfo.placeTypeName");
+
+        result.timeSegmentList = timeSegmentList;
+        result.placeList = placeList;
+
+        result.result = true;
+        return result;
+
     }
 
 

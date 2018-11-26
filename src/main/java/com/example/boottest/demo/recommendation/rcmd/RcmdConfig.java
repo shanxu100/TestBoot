@@ -1,4 +1,4 @@
-package com.example.boottest.demo.recommendation;
+package com.example.boottest.demo.recommendation.rcmd;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class RcmdConfig {
 
     @Value("${recommendation.NN.number}")
-    private int NN ;
+    private int NN;
 
     @Value("${recommendation.dataset.path}")
     private String datasetPath;
@@ -26,7 +26,7 @@ public class RcmdConfig {
     }
 
     @Bean(name = "NN")
-    public int getNearestNeighborhoodCount(){
+    public int getNearestNeighborhoodCount() {
         return NN;
     }
 

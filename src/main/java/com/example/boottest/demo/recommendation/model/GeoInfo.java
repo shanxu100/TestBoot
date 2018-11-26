@@ -3,6 +3,8 @@ package com.example.boottest.demo.recommendation.model;
 import java.util.List;
 
 /**
+ * 匹配从高德地图API#逆地理编码接口获取的数据
+ *
  * @author Guan
  * @date Created on 2018/11/23
  */
