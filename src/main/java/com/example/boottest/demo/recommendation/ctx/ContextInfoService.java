@@ -5,6 +5,8 @@ import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.GeoInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.recommendation.model.stats.StatsContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Service
 public class ContextInfoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ContextInfoService.class);
 
 
     @Autowired
@@ -37,18 +41,23 @@ public class ContextInfoService {
     }
 
 
-    public StatsContext statsContextInfo() {
+    /**
+     * （群体）统计情景信息
+     *
+     * @return
+     */
+    public StatsContext statsContextInfo(String appId) {
 
         StatsContext result = new StatsContext();
         //统计时段
-        List<BaseItem> timeSegmentList = contextInfoDao.findContextInfoWithAggregate("timeSegment");
+        List<BaseItem> timeSegmentList = contextInfoDao.findContextInfoWithAggregate(appId, "timeSegment");
         //统计场所
-        List<BaseItem> placeList = contextInfoDao.findContextInfoWithAggregate("locationInfo.placeTypeName");
+        List<BaseItem> placeList = contextInfoDao.findContextInfoWithAggregate(appId, "locationInfo.placeTypeName");
 
         result.timeSegmentList = timeSegmentList;
         result.placeList = placeList;
-
         result.result = true;
+        logger.info("统计情景信息:appId=" + appId + "\tresult=" + result.toJson());
         return result;
 
     }

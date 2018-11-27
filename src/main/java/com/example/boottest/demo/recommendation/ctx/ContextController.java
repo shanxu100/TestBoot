@@ -32,11 +32,13 @@ public class ContextController {
         try {
             request.setCharacterEncoding("UTF-8");
 
+            String appId = request.getParameter("appId");
+
             response.setContentType("application/json;charset=UTF-8");
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");
             response.setHeader("Access-Control-Allow-Origin", "*");
-            response.getWriter().print(contextInfoService.statsContextInfo().toJson());
+            response.getWriter().print(contextInfoService.statsContextInfo(appId).toJson());
         } catch (Exception e) {
             e.printStackTrace();
         }

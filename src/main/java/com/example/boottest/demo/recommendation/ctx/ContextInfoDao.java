@@ -58,7 +58,7 @@ public class ContextInfoDao {
      *
      * @return
      */
-    public List<BaseItem> findContextInfoWithAggregate(String groupKey) {
+    public List<BaseItem> findContextInfoWithAggregate(String appId, String groupKey) {
         /*
         MongoDB的查询语句
         db.PushContext.aggregate(
@@ -71,6 +71,10 @@ public class ContextInfoDao {
 
          */
         List<Bson> aggregateList = new ArrayList<>();
+
+        //$match
+        BasicDBObject match = new BasicDBObject();
+        match.put("appId", appId);
         //$group
         BasicDBObject group = new BasicDBObject();
         group.put("_id", "$" + groupKey);
@@ -79,6 +83,7 @@ public class ContextInfoDao {
         BasicDBObject project = new BasicDBObject("name", "$_id");
         project.put("count", 1);
 
+        aggregateList.add(new BasicDBObject("$match", match));
         aggregateList.add(new BasicDBObject("$group", group));
         aggregateList.add(new BasicDBObject("$project", project));
 
@@ -87,7 +92,6 @@ public class ContextInfoDao {
         List<BaseItem> list = new ArrayList<>();
         while (mongoCursor.hasNext()) {
             String json = mongoCursor.next().toJson();
-            logger.info(json);
             list.add(GsonUtil.fromJson(json, BaseItem.class));
         }
         return list;
@@ -95,7 +99,7 @@ public class ContextInfoDao {
 
     public static void main(String[] args) {
         ContextInfoDao contextInfoDao = new ContextInfoDao();
-        contextInfoDao.findContextInfoWithAggregate("timeSegment");
+        contextInfoDao.findContextInfoWithAggregate("61913a69-8eac-4221-856e-bbc0fd986655", "timeSegment");
     }
 
 }
