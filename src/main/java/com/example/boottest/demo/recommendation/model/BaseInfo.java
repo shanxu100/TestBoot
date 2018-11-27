@@ -1,7 +1,6 @@
 package com.example.boottest.demo.recommendation.model;
 
 import com.example.boottest.demo.utils.GsonUtil;
-import com.google.gson.Gson;
 
 /**
  * @author Guan

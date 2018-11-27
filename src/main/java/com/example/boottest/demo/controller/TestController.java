@@ -26,8 +26,6 @@ public class TestController {
     TestService testService;
 
 
-
-
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
 
@@ -58,7 +56,7 @@ public class TestController {
     @ResponseBody
     public String function4(@RequestParam String key, @RequestParam String value) {
 
-        User user=new User("user",value);
+        User user = new User("user", value);
         RedisClient.set(key, user);
         return RedisClient.get(key).toString();
     }

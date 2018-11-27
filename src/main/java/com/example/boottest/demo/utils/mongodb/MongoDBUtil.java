@@ -1,7 +1,10 @@
 package com.example.boottest.demo.utils.mongodb;
 
 import com.mongodb.*;
-import com.mongodb.client.*;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import org.apache.commons.configuration.CompositeConfiguration;
