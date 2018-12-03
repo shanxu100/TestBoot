@@ -1,4 +1,4 @@
-package com.example.boottest.demo.utils.mongodb;
+package com.example.boottest.demo.utils.mongodb.origin;
 
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * mongodb-driver 3.6 版本
  * MongoDB工具类 Mongo实例代表了一个数据库连接池，即使在多线程的环境中，一个Mongo实例对我们来说已经足够了
  * 注意Mongo已经实现了连接池，并且是线程安全的。
  * 设计为单例模式， 因 MongoDB的Java驱动是线程安全的，对于一般的应用，只要一个Mongo实例即可，

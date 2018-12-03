@@ -1,4 +1,4 @@
-package com.example.boottest.demo.utils.mongodb;
+package com.example.boottest.demo.utils.mongodb.origin;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;

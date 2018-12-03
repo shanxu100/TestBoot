@@ -3,7 +3,7 @@ package com.example.boottest.demo.recommendation.ctx;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.utils.GsonUtil;
-import com.example.boottest.demo.utils.mongodb.MongoDBUtil;
+import com.example.boottest.demo.utils.mongodb.origin.MongoDBUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
