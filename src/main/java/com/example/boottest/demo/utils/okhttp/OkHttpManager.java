@@ -27,8 +27,7 @@ import java.util.concurrent.TimeUnit;
  * 1.要完成不同的功能,其本质上就是构造不同的Request
  * 2.通过继承重写ResponseBody而实现了上传进度的监听
  * 3.通过获取Response的Stream而实现了下载进度的监听
- * 4、okhttp的核心为拦截器，常用的分为 应用拦截器和网络拦截器
- * 参考：https://www.jianshu.com/p/fc4d4348dc58
+ * 4、okhttp的核心为拦截器，常用的分为 应用拦截器和网络拦截器，参考：https://www.jianshu.com/p/fc4d4348dc58
  */
 public class OkHttpManager {
 

@@ -10,6 +10,9 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.json.Converter;
+import org.bson.json.JsonWriterSettings;
+import org.bson.json.StrictJsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -26,6 +29,17 @@ public class ContextInfoDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ContextInfoDao.class);
     private static final String TN_PUSH_CONTEXT = "PushContext";
+
+    /**
+     * 将数据库中 NumberLong 类型的值转换成java可识别的long类型
+     */
+    private static final JsonWriterSettings jsonWriterSettings = JsonWriterSettings.builder().int64Converter(new Converter<Long>() {
+        @Override
+        public void convert(Long value, StrictJsonWriter writer) {
+            writer.writeNumber(value + "");
+        }
+    }).build();
+
 
     /**
      * 插入情景信息

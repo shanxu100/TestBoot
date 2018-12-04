@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @EnableAsync
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,MongoAutoConfiguration.class})
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class DemoApplication implements CommandLineRunner {
 
     private static Logger logger = LoggerFactory.getLogger(DemoApplication.class);

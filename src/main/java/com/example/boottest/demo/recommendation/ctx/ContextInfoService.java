@@ -31,6 +31,7 @@ public class ContextInfoService {
          * TODO
          * 1、通过使用地理反向编码，将经纬度信息转换为 场所
          * 2、确定 deviceId-username 的映射
+         * 3、隐式评分：根据Message的字数和duration的长短进行比较。参考普通人的平均阅读次数
          */
         GeoInfo geoInfo = GeoUtil.regeo(contextInfo.locationInfo.latitude, contextInfo.locationInfo.longitude);
         List<GeoInfo.Aoi> aois = geoInfo.regeocode.aois;

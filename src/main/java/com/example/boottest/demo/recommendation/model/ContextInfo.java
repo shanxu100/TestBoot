@@ -18,6 +18,11 @@ public class ContextInfo extends BaseInfo {
     public String deviceId;
     public String appId;
 
+    public String itemId;
+    public int rating;
+    public long duration;
+    public int wordCount;
+
     public String time;
     public String timeSegment;
     public long timestamp;
