@@ -1,5 +1,6 @@
 package com.example.boottest.demo.recommendation.ctx;
 
+import com.example.boottest.demo.recommendation.model.BaseInfo;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.utils.GsonUtil;
@@ -82,7 +83,6 @@ public class ContextInfoDao {
         {$project: {newname:"$_id"}}
         ]
         )
-
          */
         List<Bson> aggregateList = new ArrayList<>();
 
@@ -94,8 +94,8 @@ public class ContextInfoDao {
         group.put("_id", "$" + groupKey);
         group.put("count", new BasicDBObject("$sum", 1));
         //$project
-        BasicDBObject project = new BasicDBObject("name", "$_id");
-        project.put("count", 1);
+        BasicDBObject project = new BasicDBObject("x", "$_id");
+        project.put("y", "$count");
 
         aggregateList.add(new BasicDBObject("$match", match));
         aggregateList.add(new BasicDBObject("$group", group));
@@ -111,9 +111,63 @@ public class ContextInfoDao {
         return list;
     }
 
+
+    /**
+     * 查找每一个消息的平均阅读时间
+     *
+     * @param appId
+     * @return
+     */
+    public List<BaseItem> findMsgReadingDurationWithAggregate(String appId) {
+        List<Bson> aggregateList = new ArrayList<>();
+
+        /*
+        db.PushContext.aggregate(
+        [
+        {$group:{ _id: "$itemId", avg: { $avg: "$duration"} }},
+        {$project: (
+            {"x":"$_id","y":"$avg"}
+        )}
+        ]
+        )
+         */
+
+        //$match
+        BasicDBObject match = new BasicDBObject();
+        match.put("appId", appId);
+        //$group
+        BasicDBObject group = new BasicDBObject();
+        group.put("_id", "$itemId");
+        group.put("avgTime", new BasicDBObject("$avg", "$duration"));
+        //$project
+        BasicDBObject project = new BasicDBObject("x", "$_id");
+        project.put("y", "$avgTime");
+        //$sort
+        BasicDBObject sort = new BasicDBObject("y", -1);
+
+
+        aggregateList.add(new BasicDBObject("$match", match));
+        aggregateList.add(new BasicDBObject("$group", group));
+        aggregateList.add(new BasicDBObject("$project", project));
+        aggregateList.add(new BasicDBObject("$sort", sort));
+
+        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT)
+                .aggregate(aggregateList);
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+        List<BaseItem> list = new ArrayList<>();
+        while (mongoCursor.hasNext()) {
+            String json = mongoCursor.next().toJson();
+            list.add(GsonUtil.fromJson(json, BaseItem.class));
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ContextInfoDao contextInfoDao = new ContextInfoDao();
-        contextInfoDao.findContextInfoWithAggregate("61913a69-8eac-4221-856e-bbc0fd986655", "timeSegment");
+        List<BaseItem> list = contextInfoDao.findMsgReadingDurationWithAggregate("61913a69-8eac-4221-856e-bbc0fd986655");
+        for (BaseItem item : list) {
+            System.out.println(item.toJson());
+        }
     }
 
 }

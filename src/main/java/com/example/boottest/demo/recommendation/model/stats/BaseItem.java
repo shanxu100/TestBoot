@@ -7,6 +7,14 @@ import com.example.boottest.demo.recommendation.model.BaseInfo;
  * @date Created on 2018/11/26
  */
 public class BaseItem extends BaseInfo {
-    public String name;
-    public double count;
+    public BaseItem() {
+    }
+
+    public BaseItem(String x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public String x;
+    public double y;
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Guan
  * @date Created on 2018/11/24
  */
-public class ContextMap {
+public class ContextConstant {
 
     /**
      * 将高德地图的20多种分类简化为12种
@@ -50,7 +50,10 @@ public class ContextMap {
     private static final ConcurrentHashMap<String, String> TIME_SEGMENT_MAP = new ConcurrentHashMap<>();
 
 
-//    private static final
+    /**
+     * 平均阅读速度：10 个/秒
+     */
+    public static final int avgReadingSpeed = 10;
 
 
     static {
@@ -99,8 +102,8 @@ public class ContextMap {
     /**
      * 根据高德地图的POI分类编码，获取场所Id
      *
-     * @param poiType
-     * @return
+     * @param poiType 从高德地图API中获取的地理编码
+     * @return placeType 简化后的地理编码
      */
     public static String getPlaceType(String poiType) {
         String key = "990000";
@@ -113,8 +116,8 @@ public class ContextMap {
     /**
      * 根据高德地图的POI分类编码，获取 场所 对应的中文描述
      *
-     * @param poiType
-     * @return
+     * @param poiType 从高德地图API中获取的地理编码
+     * @return placeTypeName 简化后的地理编码的中文描述
      */
     public static String getPlaceTypeName(String poiType) {
         String key = "990000";

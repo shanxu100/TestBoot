@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Guan
@@ -43,6 +44,23 @@ public class ContextController {
             e.printStackTrace();
         }
 
+    }
+
+    @RequestMapping("/statsMsgInfo")
+    public void statsMsgInfo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setCharacterEncoding("UTF-8");
+            String appId = request.getParameter("appId");
+
+            response.setContentType("application/json;charset=UTF-8");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().print(contextInfoService.statsMsgInfo(appId).toJson());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,12 +1,14 @@
 package com.example.boottest.demo.recommendation.model;
 
 
-import com.example.boottest.demo.recommendation.ctx.ContextMap;
+import com.example.boottest.demo.recommendation.ctx.ContextConstant;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * 记录最基本的情景信息
+ *
  * @author Guan
  * @date Created on 2018/11/21
  */
@@ -47,8 +49,8 @@ public class ContextInfo extends BaseInfo {
         locationInfo.formattedAddress = formattedAddress;
         locationInfo.poiType = poiType;
         locationInfo.poiTypeName = poiTypeName;
-        locationInfo.placeType = ContextMap.getPlaceType(poiType);
-        locationInfo.placeTypeName = ContextMap.getPlaceTypeName(poiType);
+        locationInfo.placeType = ContextConstant.getPlaceType(poiType);
+        locationInfo.placeTypeName = ContextConstant.getPlaceTypeName(poiType);
     }
 
     /**
@@ -57,13 +59,13 @@ public class ContextInfo extends BaseInfo {
      * @return
      */
     public String getContextId() {
-        return ContextMap.getContextId(this);
+        return ContextConstant.getContextId(this);
     }
 
     /**
      * 格式化时间信息
      */
-    private void formatTime() {
+    public void formatTime() {
         timestamp = timestamp <= 0 ? System.currentTimeMillis() : timestamp;
         time = format.format(new Date(timestamp));
         int hour = Integer.parseInt(time.substring(11, 13));
@@ -76,11 +78,6 @@ public class ContextInfo extends BaseInfo {
         }
     }
 
-    @Override
-    public String toJson() {
-        formatTime();
-        return super.toJson();
-    }
 
 //==========================================
 
