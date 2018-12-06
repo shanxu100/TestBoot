@@ -92,12 +92,27 @@ public class ContextInfoService {
     public StatsContext statsContextInfo(String appId) {
 
         StatsContext result = new StatsContext();
-        //统计时段
-        List<BaseItem> timeSegmentList = contextInfoDao.findContextInfoWithAggregate(appId, "timeSegment");
         //统计场所
         List<BaseItem> placeList = contextInfoDao.findContextInfoWithAggregate(appId, "locationInfo.placeTypeName");
+        //统计时段(概览)
+        List<BaseItem> timeSegmentList = contextInfoDao.findContextInfoWithAggregate(appId, "timeSegment");
+        //统计时段（按小时）
+        List<BaseItem> timeSegmentByHourList = contextInfoDao.findContextInfoWithAggregate(appId, "hour");
+        List<BaseItem> timeSegmentByHourList2 = new ArrayList<>(24);
+        for (int i = 0; i < 24; i++) {
+            timeSegmentByHourList2.add(new BaseItem(i + "", 0));
+        }
+        for (BaseItem baseItem : timeSegmentByHourList) {
+            int x = Integer.parseInt(baseItem.x);
+            timeSegmentByHourList2.set(x, baseItem);
+        }
+        for (BaseItem baseItem : timeSegmentByHourList2) {
+            String x = baseItem.x;
+            baseItem.x = x + " 时";
+        }
 
         result.timeSegmentList = timeSegmentList;
+        result.timeSegmentByHourList = timeSegmentByHourList2;
         result.placeList = placeList;
         result.result = true;
         logger.info("统计情景信息:appId=" + appId + "\tresult=" + result.toJson());

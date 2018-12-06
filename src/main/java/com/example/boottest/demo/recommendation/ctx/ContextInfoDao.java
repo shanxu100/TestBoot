@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -96,10 +97,14 @@ public class ContextInfoDao {
         //$project
         BasicDBObject project = new BasicDBObject("x", "$_id");
         project.put("y", "$count");
+        //$sort
+        BasicDBObject sort = new BasicDBObject("x", 1);
 
         aggregateList.add(new BasicDBObject("$match", match));
         aggregateList.add(new BasicDBObject("$group", group));
         aggregateList.add(new BasicDBObject("$project", project));
+        aggregateList.add(new BasicDBObject("$sort", sort));
+
 
         AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
         MongoCursor<Document> mongoCursor = findIterable.iterator();
@@ -163,11 +168,15 @@ public class ContextInfoDao {
     }
 
     public static void main(String[] args) {
-        ContextInfoDao contextInfoDao = new ContextInfoDao();
-        List<BaseItem> list = contextInfoDao.findMsgReadingDurationWithAggregate("61913a69-8eac-4221-856e-bbc0fd986655");
-        for (BaseItem item : list) {
-            System.out.println(item.toJson());
-        }
+        List<BaseItem> list=new ArrayList<>();
+        list.add(new BaseItem("1",2));
+        list.add(new BaseItem("3",4));
+        list.add(new BaseItem("5",6));
+
+        Iterator<BaseItem> iterator=list.iterator();
+
+        System.out.println(list.size());
+
     }
 
 }

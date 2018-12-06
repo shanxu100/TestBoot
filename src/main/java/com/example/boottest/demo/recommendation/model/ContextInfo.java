@@ -27,6 +27,7 @@ public class ContextInfo extends BaseInfo {
 
     public String time;
     public String timeSegment;
+    public String hour;
     public long timestamp;
 
     public String versionCode;
@@ -68,7 +69,8 @@ public class ContextInfo extends BaseInfo {
     public void formatTime() {
         timestamp = timestamp <= 0 ? System.currentTimeMillis() : timestamp;
         time = format.format(new Date(timestamp));
-        int hour = Integer.parseInt(time.substring(11, 13));
+        this.hour = time.substring(11, 13);
+        int hour = Integer.parseInt(this.hour);
         if (hour >= 6 && hour < 12) {
             timeSegment = "上午";
         } else if (hour >= 12 && hour < 18) {

@@ -16,5 +16,7 @@ public class StatsContext extends BaseInfo {
 
     public List<BaseItem> timeSegmentList;
 
+    public List<BaseItem> timeSegmentByHourList;
+
 
 }
