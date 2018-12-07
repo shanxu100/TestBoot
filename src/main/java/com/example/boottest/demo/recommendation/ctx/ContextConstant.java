@@ -133,7 +133,7 @@ public class ContextConstant {
      */
     public static String getTimeSegmentId(String timeSegment) {
         String defaultTimeSegment = "01";
-        if (TIME_SEGMENT_MAP.contains(timeSegment)) {
+        if (TIME_SEGMENT_MAP.containsKey(timeSegment)) {
             return TIME_SEGMENT_MAP.get(timeSegment);
         }
         return defaultTimeSegment;

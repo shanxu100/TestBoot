@@ -1,6 +1,5 @@
 package com.example.boottest.demo.recommendation.ctx;
 
-import com.example.boottest.demo.recommendation.model.BaseInfo;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.utils.GsonUtil;
@@ -151,10 +150,13 @@ public class ContextInfoDao {
         BasicDBObject sort = new BasicDBObject("y", -1);
 
 
+
         aggregateList.add(new BasicDBObject("$match", match));
         aggregateList.add(new BasicDBObject("$group", group));
         aggregateList.add(new BasicDBObject("$project", project));
         aggregateList.add(new BasicDBObject("$sort", sort));
+        //排序后取前20个数据
+        aggregateList.add(new BasicDBObject("$limit", 20));
 
         AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT)
                 .aggregate(aggregateList);
@@ -168,12 +170,12 @@ public class ContextInfoDao {
     }
 
     public static void main(String[] args) {
-        List<BaseItem> list=new ArrayList<>();
-        list.add(new BaseItem("1",2));
-        list.add(new BaseItem("3",4));
-        list.add(new BaseItem("5",6));
+        List<BaseItem> list = new ArrayList<>();
+        list.add(new BaseItem("1", 2));
+        list.add(new BaseItem("3", 4));
+        list.add(new BaseItem("5", 6));
 
-        Iterator<BaseItem> iterator=list.iterator();
+        Iterator<BaseItem> iterator = list.iterator();
 
         System.out.println(list.size());
 
