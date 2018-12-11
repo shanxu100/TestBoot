@@ -8,6 +8,8 @@ import org.bson.json.JsonWriterSettings;
 import org.bson.json.StrictJsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,6 +22,9 @@ public class ContextRatingDao {
     private static final Logger logger = LoggerFactory.getLogger(ContextRatingDao.class);
     private static final String TN_PUSH_CONTEXT = "PushRating";
 
+    @Autowired
+    MongoTemplate mongoTemplate;
+
     /**
      * 将数据库中 NumberLong 类型的值转换成java可识别的long类型
      */
@@ -31,9 +36,11 @@ public class ContextRatingDao {
     }).build();
 
 
-    public void addContextRating(ContextRating contextRating){
+    public void addContextRating(ContextRating contextRating) {
         Document document = Document.parse(contextRating.toJson());
-        MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).insertOne(document);
+//        MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).insertOne(document);
+        mongoTemplate.getCollection(TN_PUSH_CONTEXT).insertOne(document);
+
     }
 
 }

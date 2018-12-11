@@ -3,7 +3,6 @@ package com.example.boottest.demo.recommendation.ctx;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.utils.GsonUtil;
-import com.example.boottest.demo.utils.mongodb.origin.MongoDBUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
@@ -15,6 +14,8 @@ import org.bson.json.JsonWriterSettings;
 import org.bson.json.StrictJsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class ContextInfoDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ContextInfoDao.class);
     private static final String TN_PUSH_CONTEXT = "PushContext";
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     /**
      * 将数据库中 NumberLong 类型的值转换成java可识别的long类型
@@ -49,7 +53,8 @@ public class ContextInfoDao {
      */
     public void addContextInfo(ContextInfo contextInfo) {
         Document document = Document.parse(contextInfo.toJson());
-        MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).insertOne(document);
+//        MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).insertOne(document);
+        mongoTemplate.getCollection(TN_PUSH_CONTEXT).insertOne(document);
     }
 
 
@@ -59,7 +64,9 @@ public class ContextInfoDao {
      * @return
      */
     public List<ContextInfo> findContextInfo() {
-        FindIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).find();
+
+//        FindIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).find();
+        FindIterable<Document> findIterable = mongoTemplate.getCollection(TN_PUSH_CONTEXT).find();
         MongoCursor<Document> mongoCursor = findIterable.iterator();
         List<ContextInfo> list = new ArrayList<>();
         while (mongoCursor.hasNext()) {
@@ -105,7 +112,9 @@ public class ContextInfoDao {
         aggregateList.add(new BasicDBObject("$sort", sort));
 
 
-        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
+//        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
+        AggregateIterable<Document> findIterable = mongoTemplate.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
+
         MongoCursor<Document> mongoCursor = findIterable.iterator();
         List<BaseItem> list = new ArrayList<>();
         while (mongoCursor.hasNext()) {
@@ -141,14 +150,13 @@ public class ContextInfoDao {
         match.put("appId", appId);
         //$group
         BasicDBObject group = new BasicDBObject();
-        group.put("_id", "$itemId");
+        group.put("_id", "$messageId");
         group.put("avgTime", new BasicDBObject("$avg", "$duration"));
         //$project
         BasicDBObject project = new BasicDBObject("x", "$_id");
         project.put("y", "$avgTime");
         //$sort
         BasicDBObject sort = new BasicDBObject("y", -1);
-
 
 
         aggregateList.add(new BasicDBObject("$match", match));
@@ -158,8 +166,9 @@ public class ContextInfoDao {
         //排序后取前20个数据
         aggregateList.add(new BasicDBObject("$limit", 20));
 
-        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT)
-                .aggregate(aggregateList);
+
+//        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
+        AggregateIterable<Document> findIterable = mongoTemplate.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
         MongoCursor<Document> mongoCursor = findIterable.iterator();
         List<BaseItem> list = new ArrayList<>();
         while (mongoCursor.hasNext()) {

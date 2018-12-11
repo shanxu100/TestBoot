@@ -57,11 +57,16 @@ public class ContextInfoService {
          * 3、隐式评分：根据Message的字数和duration的长短进行比较。参考普通人的平均阅读次数
          */
         //补充场所信息
-        GeoInfo geoInfo = GeoUtil.regeo(contextInfo.locationInfo.latitude, contextInfo.locationInfo.longitude);
-        List<GeoInfo.Aoi> aois = geoInfo.regeocode.aois;
-        if (aois != null && aois.size() != 0) {
-            contextInfo.addLocationExtentedInfo(geoInfo.regeocode.formatted_address, aois.get(0).type, aois.get(0).name);
+        if (contextInfo.locationInfo.latitude == -1 || contextInfo.locationInfo.longitude == -1) {
+            contextInfo.addUnknownLocationExtentedInfo();
+        } else {
+            GeoInfo geoInfo = GeoUtil.regeo(contextInfo.locationInfo.latitude, contextInfo.locationInfo.longitude);
+            List<GeoInfo.Aoi> aois = geoInfo.regeocode.aois;
+            if (aois != null && aois.size() != 0) {
+                contextInfo.addLocationExtentedInfo(geoInfo.regeocode.formatted_address, aois.get(0).type, aois.get(0).name);
+            }
         }
+
         //补充时段信息
         contextInfo.formatTime();
 

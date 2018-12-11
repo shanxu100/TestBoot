@@ -20,7 +20,10 @@ public class ContextInfo extends BaseInfo {
     public String deviceId;
     public String appId;
 
-    public String itemId;
+    public String messageId;
+
+
+
     public int rating;
     public long duration;
     public int wordCount;
@@ -52,6 +55,17 @@ public class ContextInfo extends BaseInfo {
         locationInfo.poiTypeName = poiTypeName;
         locationInfo.placeType = ContextConstant.getPlaceType(poiType);
         locationInfo.placeTypeName = ContextConstant.getPlaceTypeName(poiType);
+    }
+
+    /**
+     * 由于客户端定位失败，导致没有信息。所以添加默认
+     */
+    public void addUnknownLocationExtentedInfo(){
+        locationInfo.formattedAddress = "未知";
+        locationInfo.poiType = "000000";
+        locationInfo.poiTypeName = "未知";
+        locationInfo.placeType = ContextConstant.getPlaceType("");
+        locationInfo.placeTypeName = ContextConstant.getPlaceTypeName("");
     }
 
     /**
