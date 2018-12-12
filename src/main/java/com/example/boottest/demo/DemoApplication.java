@@ -1,15 +1,16 @@
 package com.example.boottest.demo;
 
 import com.example.boottest.demo.netty.NettyServer;
-import com.example.boottest.demo.recommendation.rcmd.RcmdManager;
+import com.example.boottest.demo.recommendation.rcmd.manager.AbstractRcmdManager;
+import com.example.boottest.demo.recommendation.rcmd.manager.GroupLensRcmdManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -26,7 +27,12 @@ public class DemoApplication implements CommandLineRunner {
     NettyServer nettyServer;
 
     @Autowired
-    RcmdManager rcmdManager;
+    @Qualifier("groupLensRcmdManager")
+    private AbstractRcmdManager groupLensRcmdManager;
+
+    @Autowired
+    @Qualifier("ctxRcmdManager")
+    private AbstractRcmdManager ctxRcmdManager;
 
 
     public static void main(String[] args) {
@@ -39,6 +45,9 @@ public class DemoApplication implements CommandLineRunner {
         logger.info("command line :" + Thread.currentThread().toString());
 //        nettyServer.start();
 
-//        rcmdManager.loadDataModel();
+//        groupLensRcmdManager.init();
+        ctxRcmdManager.init();
+
+
     }
 }

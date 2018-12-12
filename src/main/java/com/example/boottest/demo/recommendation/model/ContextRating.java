@@ -49,6 +49,15 @@ public class ContextRating extends BaseInfo {
         }
     }
 
+    /**
+     * 格式化输出文本，配合构建DataModel
+     *
+     * @return
+     */
+    public String toFormattedString() {
+        return userId + "::" + itemId + "::" + rating + "::" + contextId;
+    }
+
 
     public static ContextRating newInstance(ContextInfo contextInfo) {
         ContextRating contextRating = new ContextRating();

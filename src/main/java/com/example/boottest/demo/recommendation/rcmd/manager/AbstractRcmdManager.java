@@ -1,4 +1,4 @@
-package com.example.boottest.demo.recommendation.rcmd;
+package com.example.boottest.demo.recommendation.rcmd.manager;
 
 import com.example.boottest.demo.utils.LogUtils;
 import org.apache.mahout.cf.taste.common.TasteException;
@@ -16,35 +16,35 @@ import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
-import org.apache.mahout.cf.taste.similarity.precompute.example.GroupLensDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Guan
- * @date Created on 2018/11/9
+ * @date Created on 2018/12/12
  */
 @Component
-public class RcmdManager {
-    private static final Logger logger = LoggerFactory.getLogger(RcmdManager.class);
+public abstract class AbstractRcmdManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(AbstractRcmdManager.class);
+
+
+    protected DataModel dataModel;
 
     @Autowired
     @Qualifier("datasetPath")
-    private String datasetPath;
+    protected String datasetPath;
 
     @Autowired
     @Qualifier("NN")
     private int NN;
+
 
     /**
      * 正在评估模型
@@ -56,38 +56,21 @@ public class RcmdManager {
      */
     private static boolean isStatistics = false;
 
-
-    private DataModel dataModel;
-
-
-    public DataModel getDataModel() {
-        return dataModel;
+    /**
+     * 初始化
+     */
+    public void init() {
+        dataModel = loadDataModel();
     }
 
-
-    @Async
-    public void loadDataModel() {
-        try {
-            logger.info("开始加载DataModel...");
-            //记录开始时间，计算耗时
-            long startTime = System.currentTimeMillis();
-            //准备数据 这里是电影评分数据
-            File file = new File(datasetPath);
-            //将数据加载到内存中，GroupLensDataModel是针对开放电影评论数据的
-            dataModel = new GroupLensDataModel(file);
-
-            LogUtils.printRunningTime("加载DataModel", startTime);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(logger.getName(), e);
-        }
-
-    }
+    /**
+     * 加载DataModel
+     */
+    public abstract DataModel loadDataModel();
 
 
     /**
-     * 产生推荐
+     * 产生推荐列表
      *
      * @param userId
      * @param howMany
@@ -102,20 +85,21 @@ public class RcmdManager {
         //计算相似度，相似度算法有很多种，欧几里得、皮尔逊等等。
         UserSimilarity similarity = new PearsonCorrelationSimilarity(dataModel);
         //计算最近邻域，邻居有两种算法，基于固定数量的邻居和基于相似度的邻居，这里使用基于固定数量的邻居
-        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(NN, similarity, dataModel);
+        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(4, 0, similarity, dataModel, 1);
+//        UserNeighborhood userNeighborhood = new ThresholdUserNeighborhood(0.1, similarity, dataModel,0.5);
         //构建推荐器，协同过滤推荐有两种，分别是基于用户的和基于物品的，这里使用基于用户的协同过滤推荐
         Recommender recommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, similarity);
 
         //给用户ID等于5的用户推荐10部电影
-        List<RecommendedItem> recommendedItemList = recommender.recommend(userId, howMany);
+        List<RecommendedItem> recommendedItemList = recommender.recommend(userId, howMany, true);
 
         //打印推荐的结果
-        LogUtils.printRunningTime("使用基于用户的协同过滤算法,为用户:" + userId + "推荐 " + howMany + " 个商品。", startTime);
+        logger.info("使用基于用户的协同过滤算法,为用户: {} 推荐 {} 个商品。耗时：{} ms。",
+                userId, howMany, System.currentTimeMillis() - startTime);
         for (RecommendedItem recommendedItem : recommendedItemList) {
-            logger.error(recommendedItem.toString());
+            logger.debug(recommendedItem.toString());
         }
         return recommendedItemList;
-
     }
 
     /**
@@ -219,6 +203,5 @@ public class RcmdManager {
 
 
     }
-
 
 }

@@ -1,5 +1,8 @@
 package com.example.boottest.demo.recommendation.rcmd;
 
+import com.example.boottest.demo.recommendation.rcmd.manager.AbstractRcmdManager;
+import com.example.boottest.demo.recommendation.rcmd.manager.CtxRcmdManager;
+import com.example.boottest.demo.recommendation.rcmd.manager.GroupLensRcmdManager;
 import com.example.boottest.demo.utils.RedisClient;
 import org.apache.mahout.cf.taste.eval.IRStatistics;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
@@ -20,7 +23,9 @@ import java.util.List;
 public class RcmdService {
 
     @Autowired
-    RcmdManager rcmdManager;
+//    @Qualifier("groupLensRcmdManager")
+    @Qualifier("ctxRcmdManager")
+    private AbstractRcmdManager rcmdManager;
 
     @Autowired
     @Qualifier("datasetPath")
