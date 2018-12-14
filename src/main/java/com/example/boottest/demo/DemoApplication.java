@@ -3,6 +3,7 @@ package com.example.boottest.demo;
 import com.example.boottest.demo.netty.NettyServer;
 import com.example.boottest.demo.recommendation.rcmd.manager.AbstractRcmdManager;
 import com.example.boottest.demo.recommendation.rcmd.manager.GroupLensRcmdManager;
+import com.example.boottest.demo.utils.mqtt.MqttClientManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class DemoApplication implements CommandLineRunner {
 
 //        groupLensRcmdManager.init();
         ctxRcmdManager.init();
+        MqttClientManager.getInstance().start();
 
 
     }

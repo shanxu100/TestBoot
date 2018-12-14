@@ -1,7 +1,6 @@
 package com.example.boottest.demo.recommendation.model.stats;
 
 import com.example.boottest.demo.recommendation.model.BaseInfo;
-import com.example.boottest.demo.recommendation.model.MsgInfo;
 
 import java.util.List;
 

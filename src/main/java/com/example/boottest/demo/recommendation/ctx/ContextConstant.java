@@ -50,10 +50,21 @@ public class ContextConstant {
     private static final ConcurrentHashMap<String, String> TIME_SEGMENT_MAP = new ConcurrentHashMap<>();
 
 
+    private static final ConcurrentHashMap<Integer, String> CONTEXT_ACTION = new ConcurrentHashMap<>();
+
+
     /**
      * 平均阅读速度：10 个/秒
      */
     public static final int avgReadingSpeed = 10;
+
+
+    public static final int ACTION_NORMAL = 0;
+
+    /**
+     * 表示应景推送的action
+     */
+    public static final int ACTION_CONTEXT = 1;
 
 
     static {
@@ -96,6 +107,10 @@ public class ContextConstant {
         TIME_SEGMENT_MAP.put("上午", "01");
         TIME_SEGMENT_MAP.put("下午", "02");
         TIME_SEGMENT_MAP.put("晚上", "03");
+
+        CONTEXT_ACTION.put(ACTION_NORMAL, "Client主动上报情景信息");
+        CONTEXT_ACTION.put(ACTION_NORMAL, "Client响应Server请求，上报当前情景信息，开展应景推送");
+
 
     }
 
@@ -164,6 +179,18 @@ public class ContextConstant {
         timeSegmentId = StringUtils.isEmpty(timeSegmentId) ? "01" : timeSegmentId;
         int contextId = (Integer.parseInt(placeType) - 1) * 3 + Integer.parseInt(timeSegmentId);
         return contextId + "";
+    }
+
+
+    /**
+     * @param contextAction
+     * @return
+     */
+    public static String getContextActionDescription(int contextAction) {
+        if (CONTEXT_ACTION.containsKey(contextAction)) {
+            return CONTEXT_ACTION.get(contextAction);
+        }
+        return "未知：Context Action=" + contextAction;
     }
 
 

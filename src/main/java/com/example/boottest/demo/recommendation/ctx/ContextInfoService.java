@@ -4,7 +4,9 @@ import com.example.boottest.demo.recommendation.geo.GeoUtil;
 import com.example.boottest.demo.recommendation.model.ContextInfo;
 import com.example.boottest.demo.recommendation.model.GeoInfo;
 import com.example.boottest.demo.recommendation.model.ContextRating;
-import com.example.boottest.demo.recommendation.model.MsgInfo;
+import com.example.boottest.demo.recommendation.model.params.ClientCmdParams;
+import com.example.boottest.demo.recommendation.model.params.PersonalizedPushParams;
+import com.example.boottest.demo.recommendation.model.stats.MsgInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.recommendation.model.stats.StatsContext;
 import com.example.boottest.demo.recommendation.model.stats.StatsMsg;
@@ -15,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -86,6 +87,24 @@ public class ContextInfoService {
         //存入数据库的两张表
         contextInfoDao.addContextInfo(contextInfo);
         contextRatingDao.addContextRating(contextRating);
+
+        //判断ContextInfo中的Option信息，是否需要进行应景推送
+        if (contextInfo.optional != null
+                && contextInfo.optional.action == ContextConstant.ACTION_CONTEXT) {
+            // TODO 进行应景推送：获取推荐列表，然后推送消息
+        }
+    }
+
+
+    /**
+     * 进行个性化推送
+     *
+     * @param params
+     */
+    public void personalizedPush(PersonalizedPushParams params) {
+        ClientCmdParams clientCmdParams = new ClientCmdParams(params.appId, ContextConstant.ACTION_CONTEXT);
+        //TODO 调用mqtt的接口，开始向客户端发起请求
+        //用户收到这个请求后开始采集情景数据，然后通过接口“addContextInfo()”上报服务器。服务器保存信息后再进行应景推送
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.boottest.demo.recommendation.ctx;
 
 import com.example.boottest.demo.recommendation.model.ContextInfo;
+import com.example.boottest.demo.recommendation.model.params.PersonalizedPushParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,10 @@ public class ContextController {
         contextInfoService.addContextInfo(contextInfo);
     }
 
+    @RequestMapping("/personalizedPush")
+    public void personalizedPush(@RequestBody PersonalizedPushParams params) {
+        contextInfoService.personalizedPush(params);
+    }
 
     @RequestMapping("/statsContextInfo")
     public void statsContextInfo(HttpServletRequest request, HttpServletResponse response) {

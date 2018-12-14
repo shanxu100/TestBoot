@@ -23,7 +23,6 @@ public class ContextInfo extends BaseInfo {
     public String messageId;
 
 
-
     public int rating;
     public long duration;
     public int wordCount;
@@ -40,6 +39,9 @@ public class ContextInfo extends BaseInfo {
     public DeviceInfo deviceInfo;
 
     public LocationInfo locationInfo;
+
+
+    public Optional optional;
 
 
     /**
@@ -60,7 +62,7 @@ public class ContextInfo extends BaseInfo {
     /**
      * 由于客户端定位失败，导致没有信息。所以添加默认
      */
-    public void addUnknownLocationExtentedInfo(){
+    public void addUnknownLocationExtentedInfo() {
         locationInfo.formattedAddress = "未知";
         locationInfo.poiType = "000000";
         locationInfo.poiTypeName = "未知";
@@ -146,6 +148,16 @@ public class ContextInfo extends BaseInfo {
         public String placeTypeName;
 
 
+    }
+
+    public static class Optional {
+
+        /**
+         * 用于标记这条情景信息是主动上报的，还是响应服务器请求后上报的
+         */
+        public int action;
+
+        public String description;
     }
 
 }
