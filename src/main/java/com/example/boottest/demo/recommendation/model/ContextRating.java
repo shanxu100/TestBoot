@@ -63,12 +63,12 @@ public class ContextRating extends BaseInfo {
         ContextRating contextRating = new ContextRating();
 
         contextRating.deviceId = contextInfo.deviceId;
-        contextRating.messageId = contextInfo.messageId;
+        contextRating.messageId = contextInfo.optional.userBehaviorInfo.messageId;
 
         contextRating.initItemId();
         contextRating.initUserId();
 
-        contextRating.rating = contextInfo.rating;
+        contextRating.rating = contextInfo.optional.userBehaviorInfo.rating;
         contextRating.contextId = contextInfo.getContextId();
         return contextRating;
     }

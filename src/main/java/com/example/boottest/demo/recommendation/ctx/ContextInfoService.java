@@ -10,6 +10,8 @@ import com.example.boottest.demo.recommendation.model.stats.MsgInfo;
 import com.example.boottest.demo.recommendation.model.stats.BaseItem;
 import com.example.boottest.demo.recommendation.model.stats.StatsContext;
 import com.example.boottest.demo.recommendation.model.stats.StatsMsg;
+import com.example.boottest.demo.utils.Base64Util;
+import com.example.boottest.demo.utils.mqtt.MqttSender;
 import com.example.boottest.demo.utils.okhttp.OkHttpManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -71,28 +73,32 @@ public class ContextInfoService {
         //补充时段信息
         contextInfo.formatTime();
 
-        //计算隐式评分信息
-        if (contextInfo.rating == -1) {
-            if (contextInfo.duration != -1 && contextInfo.wordCount != -1.0) {
-                double readingRate = ((contextInfo.duration / 1000.0) * ContextConstant.avgReadingSpeed) / contextInfo.wordCount;
-                contextInfo.rating = (int) Math.min(readingRate / 0.2, 5.0);
-            } else {
-                contextInfo.rating = 5;
+        ContextInfo.Optional optional = contextInfo.optional;
+
+        if (optional != null && optional.action == ContextConstant.ACTION_MSG) {
+            //计算隐式评分信息
+            if (optional.userBehaviorInfo.rating == -1) {
+                if (optional.userBehaviorInfo.duration != -1
+                        && optional.userBehaviorInfo.wordCount != -1.0) {
+                    double readingRate = ((optional.userBehaviorInfo.duration / 1000.0) * ContextConstant.avgReadingSpeed) / optional.userBehaviorInfo.wordCount;
+                    optional.userBehaviorInfo.rating = (int) Math.min(readingRate / 0.2, 5.0);
+                } else {
+                    optional.userBehaviorInfo.rating = 5;
+                }
             }
-        }
-
-        //提炼出 User-Item-Rating-Context 的四维信息
-        ContextRating contextRating = ContextRating.newInstance(contextInfo);
-
-        //存入数据库的两张表
-        contextInfoDao.addContextInfo(contextInfo);
-        contextRatingDao.addContextRating(contextRating);
-
-        //判断ContextInfo中的Option信息，是否需要进行应景推送
-        if (contextInfo.optional != null
-                && contextInfo.optional.action == ContextConstant.ACTION_CONTEXT) {
+            //提炼出 User-Item-Rating-Context 的四维信息,并存入数据库
+            ContextRating contextRating = ContextRating.newInstance(contextInfo);
+            contextRatingDao.addContextRating(contextRating);
+        } else if (optional != null
+                && optional.action == ContextConstant.ACTION_CONTEXT) {
             // TODO 进行应景推送：获取推荐列表，然后推送消息
+
         }
+
+        //存入数据库
+        contextInfoDao.addContextInfo(contextInfo);
+
+
     }
 
 
@@ -105,6 +111,8 @@ public class ContextInfoService {
         ClientCmdParams clientCmdParams = new ClientCmdParams(params.appId, ContextConstant.ACTION_CONTEXT);
         //TODO 调用mqtt的接口，开始向客户端发起请求
         //用户收到这个请求后开始采集情景数据，然后通过接口“addContextInfo()”上报服务器。服务器保存信息后再进行应景推送
+        MqttSender.sendMessage(params.appId, Base64Util.getBase64(clientCmdParams.toJson()));
+
     }
 
 
@@ -168,6 +176,7 @@ public class ContextInfoService {
 
             //记录“打开率”的list
             double ratio = 0;
+            msgInfo.totalCount = msgInfo.openCount > msgInfo.totalCount ? msgInfo.openCount : msgInfo.totalCount;
             if (msgInfo.totalCount != 0) {
                 ratio = msgInfo.openCount / (msgInfo.totalCount + 0.0);
             }

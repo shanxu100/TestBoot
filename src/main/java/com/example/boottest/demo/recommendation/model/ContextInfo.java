@@ -20,12 +20,6 @@ public class ContextInfo extends BaseInfo {
     public String deviceId;
     public String appId;
 
-    public String messageId;
-
-
-    public int rating;
-    public long duration;
-    public int wordCount;
 
     public String time;
     public String timeSegment;
@@ -41,7 +35,7 @@ public class ContextInfo extends BaseInfo {
     public LocationInfo locationInfo;
 
 
-    public Optional optional;
+    public Optional optional=new Optional();
 
 
     /**
@@ -158,6 +152,8 @@ public class ContextInfo extends BaseInfo {
         public int action;
 
         public String description;
+
+        public UserBehaviorInfo userBehaviorInfo;
     }
 
 }

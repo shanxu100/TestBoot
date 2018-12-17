@@ -75,9 +75,13 @@ public class ContextInfoDao {
         return list;
     }
 
+
     /**
      * 通过聚合操作，查找 contextInfo 表中指定字段的数量
+     * 比如 场所、时段、时间等
      *
+     * @param appId
+     * @param groupKey
      * @return
      */
     public List<BaseItem> findContextInfoWithAggregate(String appId, String groupKey) {
@@ -126,6 +130,7 @@ public class ContextInfoDao {
 
 
     /**
+     * TODO 数据结构变了，这里要改
      * 查找每一个消息的平均阅读时间
      *
      * @param appId
@@ -148,10 +153,11 @@ public class ContextInfoDao {
         //$match
         BasicDBObject match = new BasicDBObject();
         match.put("appId", appId);
+        match.put("optional.action", 2);
         //$group
         BasicDBObject group = new BasicDBObject();
-        group.put("_id", "$messageId");
-        group.put("avgTime", new BasicDBObject("$avg", "$duration"));
+        group.put("_id", "$optional.userBehaviorInfo.messageId");
+        group.put("avgTime", new BasicDBObject("$avg", "$optional.userBehaviorInfo.duration"));
         //$project
         BasicDBObject project = new BasicDBObject("x", "$_id");
         project.put("y", "$avgTime");
@@ -167,7 +173,6 @@ public class ContextInfoDao {
         aggregateList.add(new BasicDBObject("$limit", 20));
 
 
-//        AggregateIterable<Document> findIterable = MongoDBUtil.instance.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
         AggregateIterable<Document> findIterable = mongoTemplate.getCollection(TN_PUSH_CONTEXT).aggregate(aggregateList);
         MongoCursor<Document> mongoCursor = findIterable.iterator();
         List<BaseItem> list = new ArrayList<>();

@@ -59,12 +59,20 @@ public class ContextConstant {
     public static final int avgReadingSpeed = 10;
 
 
+    /**
+     * 默认:只有情景信息
+     */
     public static final int ACTION_NORMAL = 0;
 
     /**
-     * 表示应景推送的action
+     * client上报情景信息，同时服务器需要经行 应景推送
      */
     public static final int ACTION_CONTEXT = 1;
+
+    /**
+     * client在阅读Msg的时候上报的情景信息
+     */
+    public static final int ACTION_MSG = 2;
 
 
     static {
@@ -103,13 +111,15 @@ public class ContextConstant {
         POI_TYPE_MAP.put("220000", new Place("13", "其他"));
         POI_TYPE_MAP.put("970000", new Place("13", "其他"));
         POI_TYPE_MAP.put("990000", new Place("13", "其他"));
+        POI_TYPE_MAP.put("000000", new Place("13", "其他"));
 
         TIME_SEGMENT_MAP.put("上午", "01");
         TIME_SEGMENT_MAP.put("下午", "02");
         TIME_SEGMENT_MAP.put("晚上", "03");
 
         CONTEXT_ACTION.put(ACTION_NORMAL, "Client主动上报情景信息");
-        CONTEXT_ACTION.put(ACTION_NORMAL, "Client响应Server请求，上报当前情景信息，开展应景推送");
+        CONTEXT_ACTION.put(ACTION_CONTEXT, "Client响应Server请求，上报当前情景信息，开展应景推送");
+        CONTEXT_ACTION.put(ACTION_MSG, "阅读Msg的时候上报的情景信息");
 
 
     }

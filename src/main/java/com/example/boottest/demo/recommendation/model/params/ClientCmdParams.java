@@ -1,6 +1,7 @@
 package com.example.boottest.demo.recommendation.model.params;
 
 import com.example.boottest.demo.recommendation.ctx.ContextConstant;
+import com.example.boottest.demo.recommendation.model.BaseInfo;
 
 /**
  * Server向Client SDK发送命令的实体
@@ -9,7 +10,7 @@ import com.example.boottest.demo.recommendation.ctx.ContextConstant;
  * @author Guan
  * @date Created on 2018/12/14
  */
-public class ClientCmdParams {
+public class ClientCmdParams extends BaseInfo {
 
     public String appId;
     public String deviceId;
