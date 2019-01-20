@@ -15,9 +15,13 @@ import com.example.boottest.demo.utils.mqtt.MqttSender;
 import com.example.boottest.demo.utils.okhttp.OkHttpManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -152,6 +156,12 @@ public class ContextInfoService {
 
     }
 
+    /**
+     * 统计消息阅读情况
+     *
+     * @param appId
+     * @return
+     */
     public StatsMsg statsMsgInfo(String appId) {
         StatsMsg result = new StatsMsg();
         List<BaseItem> msgReadingTimeList = contextInfoDao.findMsgReadingDurationWithAggregate(appId);
@@ -196,5 +206,89 @@ public class ContextInfoService {
 
     }
 
+
+
+    //=====================================================
+    //测试
+    //=====================================================
+    @Autowired
+    MongoTemplate mongoTemplate;
+
+    /**
+     * 添加测试用的数据
+     */
+    public void addTestRecord() {
+        FindIterable<Document> findIterable = mongoTemplate.getCollection("PushMessage").find();
+        Iterator<Document> iterator = findIterable.iterator();
+        Gson gson = new Gson();
+        Set<String> set = new HashSet<>();
+        while (iterator.hasNext()) {
+            String json = iterator.next().toJson();
+            MyClass c = gson.fromJson(json, MyClass.class);
+            set.add(c.messageId);
+        }
+
+        MongoCollection<Document> collection = mongoTemplate.getCollection("PushRating");
+
+        for (String string : set) {
+            ContextRating rating = new ContextRating();
+            //"ffffffff-84db-c9d2-0000-000067cadb8d"
+            //"00000000-4a22-4437-ffff-ffff8a0e4c7a"
+            //00000000-790a-45b0-ffff-ffffbe68e73d
+            rating.deviceId = "00000000-49f7-fdb7-ffff-ffffa25fd887";
+            rating.messageId = string;
+            rating.initItemId();
+            rating.initUserId();
+            rating.rating = (int) (Math.random() * 5);
+            rating.contextId = (int) (Math.random() * 35) + "";
+            Document document = Document.parse(rating.toJson());
+            collection.insertOne(document);
+
+        }
+        for (String string : set) {
+            ContextRating rating = new ContextRating();
+            //"00000000-4a22-4437-ffff-ffff8a0e4c7a"
+            //00000000-790a-45b0-ffff-ffffbe68e73d
+            rating.deviceId = "ffffffff-84db-c9d2-0000-000067cadb8d";
+            rating.messageId = string;
+            rating.initItemId();
+            rating.initUserId();
+            rating.rating = (int) (Math.random() * 5);
+            rating.contextId = (int) (Math.random() * 35) + "";
+            Document document = Document.parse(rating.toJson());
+            collection.insertOne(document);
+
+        }
+
+        for (String string : set) {
+            ContextRating rating = new ContextRating();
+            //00000000-790a-45b0-ffff-ffffbe68e73d
+            rating.deviceId = "00000000-4a22-4437-ffff-ffff8a0e4c7a";
+            rating.messageId = string;
+            rating.initItemId();
+            rating.initUserId();
+            rating.rating = (int) (Math.random() * 5);
+            rating.contextId = (int) (Math.random() * 35) + "";
+            Document document = Document.parse(rating.toJson());
+            collection.insertOne(document);
+        }
+
+        for (String string : set) {
+            ContextRating rating = new ContextRating();
+            rating.deviceId = "00000000-790a-45b0-ffff-ffffbe68e73d";
+            rating.messageId = string;
+            rating.initItemId();
+            rating.initUserId();
+            rating.rating = (int) (Math.random() * 5);
+            rating.contextId = (int) (Math.random() * 35) + "";
+            Document document = Document.parse(rating.toJson());
+            collection.insertOne(document);
+        }
+    }
+
+    public static class MyClass{
+        public String messageId;
+
+    }
 
 }

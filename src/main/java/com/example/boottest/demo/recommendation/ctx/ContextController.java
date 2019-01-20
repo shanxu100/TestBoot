@@ -68,4 +68,8 @@ public class ContextController {
         }
     }
 
+    @RequestMapping("/testAddRecord")
+    public void testAddRecord(){
+        contextInfoService.addTestRecord();
+    }
 }

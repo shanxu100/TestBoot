@@ -39,6 +39,11 @@ public class GeoUtil {
      * @param longitude 经度
      */
     public static GeoInfo regeo(double latitude, double longitude) {
+        return regeo(latitude + "", longitude + "");
+
+    }
+
+    public static GeoInfo regeo(String latitude, String longitude) {
         Map<String, String> params = new HashMap<>();
         params.put("key", GAODE_KEY);
         //经度在前，维度在后
@@ -47,8 +52,13 @@ public class GeoUtil {
         //同步请求方法
         String result = OkHttpManager.getSync(WebUrl.REGEO, params);
 
-        GeoInfo geoInfo = GsonUtil.fromJson(result, GeoInfo.class);
-        return geoInfo;
+        try {
+            GeoInfo geoInfo = GsonUtil.fromJson(result, GeoInfo.class);
+            return geoInfo;
+        } catch (Exception e) {
+            return null;
+        }
+
 
     }
 

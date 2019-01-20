@@ -142,6 +142,7 @@
             <artifactId>mongodb-driver</artifactId>
         </dependency>
 
+        <!--MQTT相关-->
         <dependency>
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>

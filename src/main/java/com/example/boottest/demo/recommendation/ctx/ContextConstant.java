@@ -81,37 +81,37 @@ public class ContextConstant {
         POI_TYPE_MAP.put("030000", new Place("01", "机动车服务"));
         POI_TYPE_MAP.put("040000", new Place("01", "机动车服务"));
 
-        POI_TYPE_MAP.put("050000", new Place("02", "餐饮购物"));
-        POI_TYPE_MAP.put("060000", new Place("02", "餐饮购物"));
+        POI_TYPE_MAP.put("050000", new Place("02", "餐饮服务"));
+        POI_TYPE_MAP.put("060000", new Place("03", "购物服务"));
 
-        POI_TYPE_MAP.put("070000", new Place("03", "生活服务"));
+        POI_TYPE_MAP.put("070000", new Place("04", "生活服务"));
 
-        POI_TYPE_MAP.put("080000", new Place("04", "体育休闲"));
+        POI_TYPE_MAP.put("080000", new Place("05", "体育休闲"));
 
-        POI_TYPE_MAP.put("090000", new Place("05", "医疗保健"));
+        POI_TYPE_MAP.put("090000", new Place("06", "医疗保健"));
 
-        POI_TYPE_MAP.put("100000", new Place("06", "旅游住宿"));
-        POI_TYPE_MAP.put("110000", new Place("06", "旅游住宿"));
+        POI_TYPE_MAP.put("100000", new Place("07", "旅游住宿"));
+        POI_TYPE_MAP.put("110000", new Place("08", "风景名胜"));
 
-        POI_TYPE_MAP.put("120000", new Place("07", "商务住宅"));
+        POI_TYPE_MAP.put("120000", new Place("09", "商务住宅"));
 
-        POI_TYPE_MAP.put("130000", new Place("08", "政府社团"));
+        POI_TYPE_MAP.put("130000", new Place("10", "政府社团"));
 
-        POI_TYPE_MAP.put("140000", new Place("09", "科教文化"));
+        POI_TYPE_MAP.put("140000", new Place("11", "科教文化"));
 
-        POI_TYPE_MAP.put("150000", new Place("10", "交通服务"));
+        POI_TYPE_MAP.put("150000", new Place("12", "交通服务"));
 
-        POI_TYPE_MAP.put("160000", new Place("11", "金融保险"));
+        POI_TYPE_MAP.put("160000", new Place("13", "金融保险"));
 
-        POI_TYPE_MAP.put("170000", new Place("12", "公司企业"));
+        POI_TYPE_MAP.put("170000", new Place("14", "公司企业"));
 
-        POI_TYPE_MAP.put("180000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("190000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("200000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("220000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("970000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("990000", new Place("13", "其他"));
-        POI_TYPE_MAP.put("000000", new Place("13", "其他"));
+        POI_TYPE_MAP.put("180000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("190000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("200000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("220000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("970000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("990000", new Place("15", "其他"));
+        POI_TYPE_MAP.put("000000", new Place("15", "其他"));
 
         TIME_SEGMENT_MAP.put("上午", "01");
         TIME_SEGMENT_MAP.put("下午", "02");
