@@ -28,7 +28,7 @@
 <script th:inline="javascript">
     var stompClient = null;
     //此值有服务端传递给前端,实现方式没有要求
-    var userId = [[${userId}]];
+    var user = [[${user}]];
 
     function setConnected(connected) {
         document.getElementById('connect').disabled = connected;
@@ -47,8 +47,8 @@
             stompClient.subscribe('/topic/getResponse', function (respnose) {
                 showResponse(JSON.parse(respnose.body).responseMessage);
             });
-            //4通过stompClient.subscribe（）订阅服务器的目标是'/user/' + userId + '/msg'接收一对一的推送消息,其中userId由服务端传递过来,用于表示唯一的用户,通过此值将消息精确推送给一个用户
-            stompClient.subscribe('/user/' + userId + '/msg', function (respnose) {
+            //4通过stompClient.subscribe（）订阅服务器的目标是'/user/' + user + '/msg'接收一对一的推送消息,其中userId由服务端传递过来,用于表示唯一的用户,通过此值将消息精确推送给一个用户
+            stompClient.subscribe('/user/' + user + '/msg', function (respnose) {
                 console.log(respnose);
                 showResponse1(JSON.parse(respnose.body).responseMessage);
             });
