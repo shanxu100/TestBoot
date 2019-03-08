@@ -58,10 +58,11 @@ public class UserSimilarity implements Comparable<UserSimilarity> {
 
     @Override
     public int compareTo(UserSimilarity o) {
+        //为了在TreeSet或TreeMap中倒序排列
         if (similarity > o.similarity) {
-            return 1;
-        } else if (similarity < o.similarity) {
             return -1;
+        } else if (similarity < o.similarity) {
+            return 1;
         }
         return 0;
     }

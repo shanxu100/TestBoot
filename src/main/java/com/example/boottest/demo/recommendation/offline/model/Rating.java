@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author Guan
  * @date Created on 2019/3/6
  */
-public class Rating {
+public class Rating implements Comparable<Rating> {
     private User user;
     private Item item;
     private double rating;
@@ -55,4 +55,17 @@ public class Rating {
     public int hashCode() {
         return Objects.hash(user, item, rating);
     }
+
+    @Override
+    public int compareTo(Rating o) {
+        //为了在TreeSet或TreeMap中倒序排列
+        if (this.rating > o.rating) {
+            return -1;
+        } else if (this.rating < o.rating) {
+            return 1;
+        }
+        return 0;
+    }
+
+
 }

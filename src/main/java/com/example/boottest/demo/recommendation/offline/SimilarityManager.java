@@ -30,6 +30,7 @@ public class SimilarityManager {
 
         if (null == targetUser) {
             System.out.println("targetUser==null，没有此用户");
+            return;
         }
 
         for (User user1 : users) {

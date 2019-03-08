@@ -60,7 +60,7 @@ public class UserItemMatrixManager {
 
 
     /**
-     * 获取用户的评分数据
+     * 获取指定用户的所有评分数据
      *
      * @param user
      * @return
@@ -72,10 +72,37 @@ public class UserItemMatrixManager {
         return new HashMap<>(0);
     }
 
+
+    /**
+     * 获取用户User对指定Item的评分数据
+     *
+     * @param user
+     * @param item
+     * @return
+     */
+    public static Rating getRatingData(User user, Item item) {
+        if (map.containsKey(user) && map.get(user).containsKey(item)) {
+            return map.get(user).get(item);
+        }
+        return null;
+    }
+
+
+    /**
+     * 获得用户列表
+     *
+     * @return
+     */
     public static Set<User> getAllUser() {
         return map.keySet();
     }
 
+    /**
+     * 根据用户Id获取User对象
+     *
+     * @param userId
+     * @return
+     */
     public static User getUser(String userId) {
         for (User user : map.keySet()) {
             if (user.getUserId().equals(userId)) {
