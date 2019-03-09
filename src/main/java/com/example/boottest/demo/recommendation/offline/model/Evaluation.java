@@ -48,4 +48,14 @@ public class Evaluation {
                 ", fMeasure=" + fMeasure +
                 '}';
     }
+
+    /**
+     * 格式化输出
+     *
+     * @param separator
+     * @return
+     */
+    public String toFormattedString(String separator) {
+        return precision + separator + recall + separator + fMeasure;
+    }
 }

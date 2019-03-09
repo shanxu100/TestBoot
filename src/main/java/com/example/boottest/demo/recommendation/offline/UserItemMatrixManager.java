@@ -4,11 +4,11 @@ import com.example.boottest.demo.recommendation.offline.model.Item;
 import com.example.boottest.demo.recommendation.offline.model.Rating;
 import com.example.boottest.demo.recommendation.offline.model.User;
 
-import java.io.*;
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * 用户项目评分矩阵
@@ -40,20 +40,13 @@ public class UserItemMatrixManager {
      */
     public static void input(File file, String separator) {
 
-        try {
-            // 建立一个对象，它把文件内容转成计算机能读懂的语言
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                // 一次读入一行数据
-                String[] ss = line.split(separator);
-                User user = new User(ss[0]);
-                Item item = new Item(ss[1]);
-                Rating rating = new Rating(user, item, Double.parseDouble(ss[2]));
-                put(user, item, rating);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<String> list = FileManager.inputFile(file);
+        for (String line : list) {
+            String[] ss = line.split(separator);
+            User user = new User(ss[0]);
+            Item item = new Item(ss[1]);
+            Rating rating = new Rating(user, item, Double.parseDouble(ss[2]));
+            put(user, item, rating);
         }
 
     }

@@ -66,4 +66,13 @@ public class UserSimilarity implements Comparable<UserSimilarity> {
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "UserSimilarity{" +
+                "u1=" + u1.getUserId() +
+                ", u2=" + u2.getUserId() +
+                ", similarity=" + similarity +
+                '}';
+    }
 }

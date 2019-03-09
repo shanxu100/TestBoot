@@ -1,19 +1,18 @@
 package com.example.boottest.demo.recommendation.offline.evaluation;
 
+import com.example.boottest.demo.recommendation.offline.FileManager;
 import com.example.boottest.demo.recommendation.offline.model.Evaluation;
 import com.example.boottest.demo.recommendation.offline.model.Item;
 import com.example.boottest.demo.recommendation.offline.model.User;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.File;
+import java.util.*;
 
 /**
  * @author Guan
  * @date Created on 2019/3/8
  */
-public class evaluationManager {
+public class EvaluationManager {
 
 
     public static void main(String[] args) {
@@ -41,6 +40,48 @@ public class evaluationManager {
 
     }
 
+
+    public static Evaluation calculatePrecisionRecall(File resultSetFile, File testSetFile, String separator) {
+
+        List<String> trainList = FileManager.inputFile(resultSetFile);
+        List<String> testList = FileManager.inputFile(testSetFile);
+        Map<User, Set<Item>> result = new HashMap<>();
+        Map<User, Set<Item>> test = new HashMap<>();
+        for (String line : trainList) {
+            String[] ss = line.split(separator);
+            User user = new User(ss[0]);
+            Item item = new Item(ss[1]);
+
+            put(user, item, result);
+        }
+        for (String line : testList) {
+            String[] ss = line.split(separator);
+            User user = new User(ss[0]);
+            Item item = new Item(ss[1]);
+            put(user, item, test);
+        }
+
+        return calculatePrecisionRecall(result, test);
+
+
+    }
+
+
+    public static Evaluation calculatePrecisionRecall2(Map<User, List<Item>> result, Map<User, List<Item>> test) {
+        Map<User, Set<Item>> result2 = new HashMap<>();
+        Map<User, Set<Item>> test2 = new HashMap<>();
+
+        for (User user : result.keySet()) {
+            result2.put(user, new HashSet<>(result.get(user)));
+        }
+
+        for (User user : test.keySet()) {
+            test2.put(user, new HashSet<>(test.get(user)));
+        }
+
+        return calculatePrecisionRecall(result2, test2);
+
+    }
 
     public static Evaluation calculatePrecisionRecall(Map<User, Set<Item>> result, Map<User, Set<Item>> test) {
 
@@ -71,12 +112,12 @@ public class evaluationManager {
             double denominatorRecall = test.get(user).size();
 
             if (denominatorPrecision != 0) {
-                precision += (numerator / denominatorPrecision);
+                precision += (numerator > denominatorPrecision ? 1 : numerator / denominatorPrecision);
             } else {
                 //说明该用户的推荐结果列表为空
             }
             if (denominatorRecall != 0) {
-                recall += (numerator / denominatorRecall);
+                recall += (numerator > denominatorRecall ? 1 : numerator / denominatorRecall);
             } else {
                 //说明该用户的测试集列表为空
             }
@@ -110,6 +151,19 @@ public class evaluationManager {
             count = s2.contains(object) ? count + 1 : count;
         }
         return count;
+    }
+
+
+    private static void put(User user, Item item, Map<User, Set<Item>> map) {
+
+        if (map.containsKey(user)) {
+            map.get(user).add(item);
+            return;
+        }
+        Set<Item> set = new HashSet<>();
+        set.add(item);
+        map.put(user, set);
+
     }
 
 

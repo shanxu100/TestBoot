@@ -67,5 +67,14 @@ public class Rating implements Comparable<Rating> {
         return 0;
     }
 
+    /**
+     * 按照指定分隔符数据相应的字段
+     *
+     * @param separator
+     * @return
+     */
+    public String toFormattedString(String separator) {
+        return user.getUserId() + separator + item.getItemId() + separator + rating;
+    }
 
 }

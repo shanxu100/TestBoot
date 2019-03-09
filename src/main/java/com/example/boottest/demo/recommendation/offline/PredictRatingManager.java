@@ -27,7 +27,6 @@ public class PredictRatingManager {
             return new ArrayList<Rating>(0);
         }
 
-        System.out.println("targetUser: " + user.getUserId() + "   最近邻数量：" + neighborList.size());
 //        for (UserSimilarity similarity : neighborList) {
 //            System.out.println(similarity.getU2().getUserId() + "----" + similarity.getSimilarity());
 //        }
@@ -61,7 +60,7 @@ public class PredictRatingManager {
             //最近邻的已评分列表
             Set<Item> tmpSet = UserItemMatrixManager.getRatingData(userSimilarity.getU2()).keySet();
             for (Item item : tmpSet) {
-                if (!ratedItemSet.contains(tmpSet)) {
+                if (!ratedItemSet.contains(item)) {
                     ratingItemSet.add(item);
                 }
             }
