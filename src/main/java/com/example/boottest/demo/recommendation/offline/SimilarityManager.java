@@ -1,5 +1,6 @@
 package com.example.boottest.demo.recommendation.offline;
 
+import com.example.boottest.demo.recommendation.offline.math.CollectionUtil;
 import com.example.boottest.demo.recommendation.offline.math.PearsonCorrelationUtil;
 import com.example.boottest.demo.recommendation.offline.model.Item;
 import com.example.boottest.demo.recommendation.offline.model.Rating;
@@ -82,7 +83,12 @@ public class SimilarityManager {
         }
 
         //计算两个用户的相似度
-        similarity.setSimilarity(PearsonCorrelationUtil.getPearsonCorrelationScore(u1List, u2List));
+        //经典的
+        double sim = PearsonCorrelationUtil.getPearsonCorrelationScore(u1List, u2List);
+        //共同评分项目因子？
+        double factor = (u1List.size() + 0.0) / CollectionUtil.setCount(u1Rating.keySet(), u2Rating.keySet());
+        sim = sim * factor;
+        similarity.setSimilarity(sim);
 
         return similarity;
 
@@ -126,5 +132,25 @@ public class SimilarityManager {
             map.put(user, set);
         }
     }
+
+
+    /**
+     * 计算共同评分因子
+     *
+     * @param u1Rating
+     * @param u2Rating
+     * @return
+     */
+    @Deprecated
+    private static double getCommonRatingFactor(Map<Item, Rating> u1Rating, Map<Item, Rating> u2Rating) {
+
+        double intersection = CollectionUtil.intersectionCount(u1Rating.keySet(), u2Rating.keySet());
+
+        double set = CollectionUtil.setCount(u1Rating.keySet(), u2Rating.keySet());
+
+        return intersection / set;
+
+    }
+
 
 }

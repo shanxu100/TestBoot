@@ -1,6 +1,7 @@
 package com.example.boottest.demo.recommendation.offline.evaluation;
 
 import com.example.boottest.demo.recommendation.offline.FileManager;
+import com.example.boottest.demo.recommendation.offline.math.CollectionUtil;
 import com.example.boottest.demo.recommendation.offline.model.Evaluation;
 import com.example.boottest.demo.recommendation.offline.model.Item;
 import com.example.boottest.demo.recommendation.offline.model.User;
@@ -107,7 +108,7 @@ public class EvaluationManager {
 
 
             //分子
-            int numerator = intersection(result.get(user), test.get(user));
+            int numerator = CollectionUtil.intersectionCount(result.get(user), test.get(user));
             //分母
             double denominatorPrecision = result.get(user).size();
             double denominatorRecall = test.get(user).size();
@@ -131,27 +132,6 @@ public class EvaluationManager {
         evaluation = new Evaluation(precision, recall, f_measure);
         return evaluation;
 
-    }
-
-
-    /**
-     * 寻找两个集合的交集
-     *
-     * @param s1
-     * @param s2
-     * @return
-     */
-    private static int intersection(Set s1, Set s2) {
-
-        if (s1.size() == 0 || s2.size() == 0) {
-            return 0;
-        }
-
-        int count = 0;
-        for (Object object : s1) {
-            count = s2.contains(object) ? count + 1 : count;
-        }
-        return count;
     }
 
 

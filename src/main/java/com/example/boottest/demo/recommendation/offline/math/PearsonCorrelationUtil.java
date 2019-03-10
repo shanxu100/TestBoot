@@ -17,7 +17,8 @@ public class PearsonCorrelationUtil {
         double[] x = new double[]{5, 5, 5, 4, 5, 5};
         double[] y = new double[]{5, 5, 4, 5, 4, 4};
         double score = getPearsonCorrelationScore(x, y);
-        System.out.println(score);//0.6350393282549671
+        System.out.println(score);
+        //0.6350393282549671
     }
 
 
@@ -54,6 +55,9 @@ public class PearsonCorrelationUtil {
         result = denominator == 0 ? 1 : numerator / denominator;
         return result;
     }
+
+
+    //======================================
 
     /**
      * 计算分子
