@@ -6,6 +6,9 @@ package com.example.boottest.demo.recommendation.offline.model;
  */
 public class Evaluation {
 
+    private int neighborCount;
+    private int rcmdCount;
+
     private double precision;
     private double recall;
     private double fMeasure;
@@ -40,6 +43,12 @@ public class Evaluation {
         this.fMeasure = fMeasure;
     }
 
+
+    public void setCount(int neighborCount, int rcmdCount) {
+        this.neighborCount = neighborCount;
+        this.rcmdCount = rcmdCount;
+    }
+
     @Override
     public String toString() {
         return "Evaluation{" +
@@ -56,6 +65,6 @@ public class Evaluation {
      * @return
      */
     public String toFormattedString(String separator) {
-        return precision + separator + recall + separator + fMeasure;
+        return neighborCount + separator + rcmdCount + separator + precision + separator + recall + separator + fMeasure;
     }
 }

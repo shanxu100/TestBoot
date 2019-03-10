@@ -10,8 +10,9 @@ public class Main {
     public static void main(String[] args) {
 
 //        CFManager.prefixRun();
-//        CFManager.run();
-        CFManager.postfixRun();
+        CFManager.autoRun();
+
+
     }
 
 

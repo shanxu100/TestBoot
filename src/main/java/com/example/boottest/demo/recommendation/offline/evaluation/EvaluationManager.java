@@ -85,6 +85,7 @@ public class EvaluationManager {
 
     public static Evaluation calculatePrecisionRecall(Map<User, Set<Item>> result, Map<User, Set<Item>> test) {
 
+        System.out.println("开始评价");
         //没有用户
         if (result.size() == 0 || test.size() == 0) {
             return new Evaluation(0, 0, 0);

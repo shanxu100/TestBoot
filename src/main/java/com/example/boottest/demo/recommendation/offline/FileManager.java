@@ -1,5 +1,6 @@
 package com.example.boottest.demo.recommendation.offline;
 
+import com.example.boottest.demo.recommendation.offline.model.Evaluation;
 import com.example.boottest.demo.recommendation.offline.model.Rating;
 import com.example.boottest.demo.recommendation.offline.model.User;
 
@@ -54,6 +55,30 @@ public class FileManager {
 
     }
 
+    public static void outputFile(File file, OutputListener listener,boolean append) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            bufferedWriter = new BufferedWriter(new FileWriter(file, append));
+
+            listener.output(bufferedWriter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedWriter != null) {
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
     public static List<String> inputFile(File file) {
         BufferedReader br = null;
@@ -80,6 +105,11 @@ public class FileManager {
             }
         }
 
+    }
+
+
+    public interface OutputListener {
+        void output(BufferedWriter bufferedWriter);
     }
 
 }
