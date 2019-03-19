@@ -45,7 +45,12 @@ public class UserItemMatrixManager {
             String[] ss = line.split(separator);
             User user = new User(ss[0]);
             Item item = new Item(ss[1]);
-            Rating rating = new Rating(user, item, Double.parseDouble(ss[2]));
+            Rating rating = null;
+            if (ss.length == 3) {
+                rating = new Rating(user, item, Double.parseDouble(ss[2]));
+            } else if (ss.length == 4) {
+                rating = new Rating(user, item, Double.parseDouble(ss[2]), Long.parseLong(ss[3]));
+            }
             put(user, item, rating);
         }
 
@@ -103,5 +108,9 @@ public class UserItemMatrixManager {
             }
         }
         return null;
+    }
+
+    public static void clear() {
+        map.clear();
     }
 }

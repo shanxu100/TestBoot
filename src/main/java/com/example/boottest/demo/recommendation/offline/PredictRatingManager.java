@@ -45,6 +45,16 @@ public class PredictRatingManager {
 
     }
 
+    public static List<Rating> predictRating(User user, List<Item> items, List<UserSimilarity> neighborList) {
+        List<Rating> list = new ArrayList<>(items.size());
+        for (Item item : items) {
+            Rating rating=predictRating(user, item, neighborList);
+            list.add(rating);
+        }
+        return list;
+
+    }
+
     /**
      * 查找目标用户User未评分，而最近邻Users评过分的Item集合
      *
@@ -166,6 +176,10 @@ public class PredictRatingManager {
             avg += entry.getValue().getRating();
         }
         return avg / map.size();
+    }
+
+    public static void clear() {
+        map.clear();
     }
 
 }

@@ -27,7 +27,7 @@ public class SimilarityManager {
      *
      * @param users
      */
-    public static void refreshSimilarity(User targetUser, Set<User> users) {
+    public static void refreshSimilarity(User targetUser, Set<User> users, boolean classic) {
 
         if (null == targetUser) {
             System.out.println("targetUser==null，没有此用户");
@@ -36,7 +36,10 @@ public class SimilarityManager {
 
         for (User user1 : users) {
             if (!targetUser.equals(user1)) {
-                UserSimilarity similarity = getPearsonCorrelationScore(targetUser, user1);
+                UserSimilarity similarity = getPearsonCorrelationScore(targetUser, user1, classic);
+                double ratingSim = similarity.getSimilarity();
+                double contextSim = ContextSimilaryManager.getContextSimilary(targetUser, user1);
+                similarity.setSimilarity(ratingSim * 0.1 + contextSim * 0.9);
                 putSimilarity(targetUser, similarity);
             }
         }
@@ -50,7 +53,7 @@ public class SimilarityManager {
      * @param u2
      * @return
      */
-    public static UserSimilarity getPearsonCorrelationScore(User u1, User u2) {
+    public static UserSimilarity getPearsonCorrelationScore(User u1, User u2, boolean classic) {
 
         //同一个用户的相似度是1
         if (Objects.equals(u1, u2)) {
@@ -85,9 +88,12 @@ public class SimilarityManager {
         //计算两个用户的相似度
         //经典的
         double sim = PearsonCorrelationUtil.getPearsonCorrelationScore(u1List, u2List);
-        //共同评分项目因子？
-        double factor = (u1List.size() + 0.0) / CollectionUtil.setCount(u1Rating.keySet(), u2Rating.keySet());
-        sim = sim * factor;
+        if (!classic) {
+            //共同评分项目因子？
+            double factor = (u1List.size() + 0.0) / CollectionUtil.setCount(u1Rating.keySet(), u2Rating.keySet());
+            sim = sim * factor;
+        }
+
         similarity.setSimilarity(sim);
 
         return similarity;

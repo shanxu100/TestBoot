@@ -4,6 +4,7 @@ import com.example.boottest.demo.recommendation.offline.FileManager;
 import com.example.boottest.demo.recommendation.offline.math.CollectionUtil;
 import com.example.boottest.demo.recommendation.offline.model.Evaluation;
 import com.example.boottest.demo.recommendation.offline.model.Item;
+import com.example.boottest.demo.recommendation.offline.model.Rating;
 import com.example.boottest.demo.recommendation.offline.model.User;
 
 import java.io.File;
@@ -134,6 +135,27 @@ public class EvaluationManager {
 
     }
 
+
+    public static double calRMSE(Set<Rating> realRatingSet, List<Rating> predictRatingList) {
+
+        double result = 0;
+        int num = 0;
+        for (Rating rating : predictRatingList) {
+
+            for (Rating realRating : realRatingSet) {
+                if (rating.getItem().getItemId().equals(realRating.getItem().getItemId())) {
+                    result += Math.pow((rating.getRating() - realRating.getRating()), 2);
+                    num++;
+                }
+            }
+        }
+        if (num != 0) {
+            result = result / num;
+        }
+        return result;
+
+
+    }
 
     private static void put(User user, Item item, Map<User, Set<Item>> map) {
 

@@ -10,11 +10,22 @@ public class Rating implements Comparable<Rating> {
     private User user;
     private Item item;
     private double rating;
+    /**
+     * 没有加入到判断equals和hashcode方法中
+     */
+    private long timestamp;
 
     public Rating(User user, Item item, double rating) {
         this.user = user;
         this.item = item;
         this.rating = rating;
+    }
+
+    public Rating(User user, Item item, double rating, long timestamp) {
+        this.user = user;
+        this.item = item;
+        this.rating = rating;
+        this.timestamp = timestamp;
     }
 
     public User getUser() {
@@ -39,6 +50,14 @@ public class Rating implements Comparable<Rating> {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -74,7 +93,7 @@ public class Rating implements Comparable<Rating> {
      * @return
      */
     public String toFormattedString(String separator) {
-        return user.getUserId() + separator + item.getItemId() + separator + rating;
+        return user.getUserId() + separator + item.getItemId() + separator + rating + separator + timestamp;
     }
 
 }

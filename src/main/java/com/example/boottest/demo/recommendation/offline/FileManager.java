@@ -55,7 +55,7 @@ public class FileManager {
 
     }
 
-    public static void outputFile(File file, OutputListener listener,boolean append) {
+    public static void outputFile(File file, OutputListener listener, boolean append) {
         BufferedWriter bufferedWriter = null;
         try {
             if (!file.exists()) {
@@ -107,9 +107,40 @@ public class FileManager {
 
     }
 
+    public static void inputFile(File file, InputListener inputListener) {
+        BufferedReader br = null;
+
+        try {
+            // 建立一个对象，它把文件内容转成计算机能读懂的语言
+            br = new BufferedReader(new FileReader(file));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                // 一次读入一行数据
+                inputListener.input(line);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
     public interface OutputListener {
         void output(BufferedWriter bufferedWriter);
+    }
+
+    public interface InputListener {
+        void input(String line);
     }
 
 }

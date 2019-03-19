@@ -27,7 +27,7 @@ public class DataSetManager {
             String[] ss = line.split(separator);
             User user = new User(ss[0]);
             Item item = new Item(ss[1]);
-            Rating rating = new Rating(user, item, Double.parseDouble(ss[2]));
+            Rating rating = new Rating(user, item, Double.parseDouble(ss[2]), Long.parseLong(ss[3]));
             put(user, item, rating);
         }
         System.out.println("原始数据集读取成功....");
