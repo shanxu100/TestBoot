@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class CFManager {
 
-    private static File data = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\ratings.dat");
+    private static File data = new File("C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_rating.txt");
 
 
 //    private static File data = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\tmp\\ratings.dat");
@@ -22,7 +22,8 @@ public class CFManager {
 //    private static File testSetFile = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\tmp\\testSet.dat");
 //    private static File resultSetFile = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\tmp\\resultSet.dat");
 
-    public static final String SEPARATOR = "::";
+    public static final String SEPARATOR = "\t";
+//    public static final String SEPARATOR2 = "\t";
 
     static {
 
@@ -42,8 +43,8 @@ public class CFManager {
      */
     public static void prefixRun() {
 
-        File trainSetFile = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\trainSet.dat");
-        File testSetFile = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\testSet.dat");
+        File trainSetFile = new File("C:\\Users\\Guan\\dataset\\brightkite\\dataset\\trainSet.dat");
+        File testSetFile = new File("C:\\Users\\Guan\\dataset\\brightkite\\dataset\\testSet.dat");
         DataSetManager.createTrainAndTestSet(data, trainSetFile, testSetFile, SEPARATOR);
     }
 
@@ -290,6 +291,22 @@ public class CFManager {
         //读数据，构造user-item矩阵
         UserItemMatrixManager.input(trainSetFile, SEPARATOR);
         runWithRMSE(testSetFile, 50, "lab7", true);
+        UserItemMatrixManager.clear();
+        PredictRatingManager.clear();
+
+    }
+
+    public static void lab8() {
+
+
+        File trainSetFile = new File("C:\\Users\\Guan\\dataset\\brightkite\\dataset\\trainSet.dat");
+        File testSetFile = new File("C:\\Users\\Guan\\dataset\\brightkite\\dataset\\testSet.dat");
+        File evaluationFile = new File("C:\\Users\\Guan\\dataset\\brightkite\\lab8\\evaluation.dat");
+
+        //加载数据集
+        //读数据，构造user-item矩阵
+        UserItemMatrixManager.input(trainSetFile, SEPARATOR);
+        runWithRMSE(testSetFile, 100, "lab8", false);
         UserItemMatrixManager.clear();
         PredictRatingManager.clear();
 

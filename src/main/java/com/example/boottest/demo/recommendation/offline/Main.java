@@ -14,9 +14,10 @@ public class Main {
 //        CFManager.lab3();
 //        CFManager.lab4();
 //        CFManager.lab5();
-        CFManager.lab6();
+//        CFManager.lab6();
 
 //        CFManager.lab7();
+        CFManager.lab8();
 
 
     }
