@@ -14,8 +14,10 @@ public class PearsonCorrelationUtil {
 
     private static void test() {
         /*用于测试*/
-        double[] x = new double[]{5, 5, 5, 4, 5, 5};
-        double[] y = new double[]{5, 5, 4, 5, 4, 4};
+        double[] x = new double[]{5, 2, 5, 2, 5};
+        double[] y = new double[]{5, 2, 5, 2, 5};
+//        double[] x = new double[]{5, 2};
+//        double[] y = new double[]{5, 2};
         double score = getPearsonCorrelationScore(x, y);
         System.out.println(score);
         //0.6350393282549671
