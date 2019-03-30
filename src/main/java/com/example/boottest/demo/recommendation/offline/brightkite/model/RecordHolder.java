@@ -199,7 +199,7 @@ public class RecordHolder {
     /**
      * 统计每一位用户的对地点的访问次数
      */
-    public void stats4(File file,int maxCount) {
+    public void stats4(File file, int maxCount) {
         System.out.println("开始统计次数------");
         Map<User, Map<String, CheckInCount>> countMap = new HashMap<>(9000);
         for (Map.Entry<User, List<CheckIn>> entry : map.entrySet()) {
@@ -242,6 +242,45 @@ public class RecordHolder {
 
             }
         }, false);
+
+    }
+
+
+    public void stats5() {
+
+        double people = 0.0;
+
+        int people0_10 = 0;
+        int people10_20 = 0;
+        int people20_30 = 0;
+        int people30_40 = 0;
+        int people40_50 = 0;
+        int people50_ = 0;
+
+        people = map.size();
+        Iterator<Map.Entry<User, List<CheckIn>>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<User, List<CheckIn>> entry = iterator.next();
+            List<CheckIn> list = entry.getValue();
+            Set<String> set = new HashSet<>(256);
+            for (CheckIn checkIn : list) {
+                set.add(checkIn.getId());
+            }
+            if (set.size() <= 10) {
+                iterator.remove();
+            } else if (set.size() <= 20) {
+                iterator.remove();
+            }
+        }
+        output(new File("C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_20POI.txt"));
+
+//        System.out.println(people0_10 + "--- " + people0_10 / people);
+//        System.out.println(people10_20 + "---" + people10_20 / people);
+//        System.out.println(people20_30 / people);
+//        System.out.println(people30_40 / people);
+//        System.out.println(people40_50 / people);
+//        System.out.println(people50_ + "---" + people50_ / people);
+//        System.out.println(people);
 
     }
 

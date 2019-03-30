@@ -15,6 +15,7 @@ public class Stats {
 
     private static String filePath = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins.txt";
     private static String filePath_100 = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_100.txt";
+    private static String filepath_20POI = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_20POI.txt";
     private static String filePath_Count = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_count.txt";
     private static String filePath_Rating = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_rating.txt";
 
@@ -25,7 +26,7 @@ public class Stats {
      * 统计有效记录总数
      */
     public static void inputTotal() {
-        File file = new File(filePath_100);
+        File file = new File(filepath_20POI);
         FileManager.inputFile(file, new FileManager.InputListener() {
             @Override
             public void input(String line) {
@@ -49,8 +50,10 @@ public class Stats {
         });
 //        recordHolder.refreshDataSet(100);
 //        recordHolder.output(new File(filePath_100));
-//        recordHolder.stats3();
-        recordHolder.stats4(new File(filePath_Rating),5);
+        recordHolder.stats3();
+//        recordHolder.stats4(new File(filePath_Rating),5);
+//        recordHolder.stats5();
+
     }
 
 }
