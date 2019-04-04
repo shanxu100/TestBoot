@@ -6,6 +6,7 @@ import com.example.boottest.demo.recommendation.offline.model.Item;
 import com.example.boottest.demo.recommendation.offline.model.Rating;
 import com.example.boottest.demo.recommendation.offline.model.User;
 import com.example.boottest.demo.recommendation.offline.model.UserSimilarity;
+import sun.rmi.runtime.Log;
 
 import java.util.*;
 
@@ -38,8 +39,13 @@ public class SimilarityManager {
             if (!targetUser.equals(user1)) {
                 UserSimilarity similarity = getPearsonCorrelationScore(targetUser, user1, classic);
                 double ratingSim = similarity.getSimilarity();
-                double contextSim = ContextSimilaryManager.getContextSimilary(targetUser, user1);
-                similarity.setSimilarity(ratingSim * 0.1 + contextSim * 0.9);
+//                double contextSim = ContextSimilaryManager.getContextSimilary(targetUser, user1);
+//                similarity.setSimilarity(ratingSim * 0.1 + contextSim * 0.9);
+//                similarity.setSimilarity(ratingSim);
+
+                if (ratingSim > 1.001) {
+                    System.err.println("计算相似度错误：sim=" + ratingSim + "  " + targetUser.getUserId() + "---" + user1.getUserId());
+                }
                 putSimilarity(targetUser, similarity);
             }
         }

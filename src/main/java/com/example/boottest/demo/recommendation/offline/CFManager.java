@@ -146,6 +146,7 @@ public class CFManager {
             RMSE = RMSE / num;
 
         }
+        RMSE = Math.sqrt(RMSE);
 //        File resultSetFile = new File("C:\\Users\\Guan\\dataset\\movielens\\ml-1m\\" + tag + "\\result\\resultSet_"
 //                + neighborNum + "_RMSE.dat");
 
