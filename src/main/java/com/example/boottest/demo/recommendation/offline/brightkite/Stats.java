@@ -16,6 +16,8 @@ import java.io.File;
 public class Stats {
 
     private static String filePath = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins.txt";
+    private static String filepath_20POI_lab9 = "C:\\Users\\Guan\\dataset\\brightkite\\lab9\\Brightkite_totalCheckins_20POI.txt";
+
     private static String filePath_100 = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_100.txt";
     private static String filepath_20POI = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_20POI.txt";
     private static String filePath_Count = "C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_count.txt";
@@ -29,7 +31,7 @@ public class Stats {
     public static void inputTotal() {
         RecordHolder recordHolder = new RecordHolder();
 
-        File file = new File(filepath_20POI);
+        File file = new File(filePath);
         FileManager.inputFile(file, new FileManager.InputListener() {
             @Override
             public void input(String line) {
@@ -42,9 +44,9 @@ public class Stats {
                 double latitude = Double.parseDouble(ss[2]);
                 //经度
                 double longitude = Double.parseDouble(ss[3]);
-//                if (latitude == 0.0 || longitude == 0.0) {
-//                    return;
-//                }
+                if (latitude == 0.0 || longitude == 0.0 || "00000000000000000000000000000000".equals(ss[4])) {
+                    return;
+                }
                 CheckIn checkIn = new CheckIn(ss[4], ss[1], longitude, latitude);
                 User user = new User(ss[0]);
                 recordHolder.put(user, checkIn);
@@ -53,9 +55,9 @@ public class Stats {
         });
 //        recordHolder.refreshDataSet(100);
 //        recordHolder.output(new File(filePath_100));
-        recordHolder.stats3();
+//        recordHolder.stats3();
 //        recordHolder.stats4(new File(filePath_Rating),5);
-//        recordHolder.stats5();
+        recordHolder.stats5(new File(filepath_20POI_lab9));
 
     }
 

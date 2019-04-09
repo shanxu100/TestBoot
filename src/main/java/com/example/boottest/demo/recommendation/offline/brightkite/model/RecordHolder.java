@@ -246,18 +246,18 @@ public class RecordHolder {
     }
 
 
-    public void stats5() {
+    public void stats5(File outputFile) {
 
-        double people = 0.0;
-
-        int people0_10 = 0;
-        int people10_20 = 0;
-        int people20_30 = 0;
-        int people30_40 = 0;
-        int people40_50 = 0;
-        int people50_ = 0;
-
-        people = map.size();
+//        double people = 0.0;
+//
+//        int people0_10 = 0;
+//        int people10_20 = 0;
+//        int people20_30 = 0;
+//        int people30_40 = 0;
+//        int people40_50 = 0;
+//        int people50_ = 0;
+//
+//        people = map.size();
         Iterator<Map.Entry<User, List<CheckIn>>> iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<User, List<CheckIn>> entry = iterator.next();
@@ -272,7 +272,7 @@ public class RecordHolder {
                 iterator.remove();
             }
         }
-        output(new File("C:\\Users\\Guan\\dataset\\brightkite\\Brightkite_totalCheckins_20POI.txt"));
+        output(outputFile);
 
 //        System.out.println(people0_10 + "--- " + people0_10 / people);
 //        System.out.println(people10_20 + "---" + people10_20 / people);
