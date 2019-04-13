@@ -11,6 +11,8 @@ public class UserSimilarity implements Comparable<UserSimilarity> {
     private User u2;
     private double similarity;
 
+    private Object tag;
+
     public UserSimilarity(User u1, User u2, double similarity) {
         this.u1 = u1;
         this.u2 = u2;
@@ -39,6 +41,14 @@ public class UserSimilarity implements Comparable<UserSimilarity> {
 
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
+    }
+
+    public Object getTag() {
+        return tag;
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     @Override
